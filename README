@@ -1,0 +1,120 @@
+- npm install.
+- npm start server & client.
+  (Note- I've used a web-scrapper [Puppeteer] to get ilnesses and doctor's categories so it might open the "browser"
+  on the first run of the project.)
+
+1. User Functionalities:
+
+- Appointment CRUD:
+
+  - Patient that cancels an appointment, cancels the appointment for the doctor as well, and the appointment become
+    available again.
+  - Doctor that cancels his shift(shift = appoint that a user can appoint to himself), cancels the appointment for the paitent.
+
+- Chat with doctor:
+
+  - Each patient can create a new chat with any of the available doctors.
+    _Note_ - In order to create a new chat with a doctor, a doctor needs to exist which means the need for creating
+    a doctor is mandatory.
+  - Each conversation(chat) is a room, so all chats are private.
+  - If a Patient or a Doctor is not connected to the chat, then he will get a notification on the navbar that he received
+    a new message.
+    Uppon entering the chat the notifications will reset or recalculated to remove the notifications of specific chat.
+    (if in chat "X" he received 5 messsages, and chat "Y" he received 10 messages, so in total he has 15 new messages, uppon
+    entering chat "X" the notifications will become "10" instead of 15 and etc.)
+  - Switching Chats Or Leaving a Chat will prompt the other user with a message "X left the conversation."
+  - Uppon joining a conversation the user will be pormpted with "X Joined the conversation."
+  - Chat history is loaded for each chat individually and saved in a Redux-Persist store in order to avoid unnecessary calls
+    if nothing new happend.
+
+- Dummy Pages:
+  -User have a dummy page of his own "Analysis".(later ill just save the analysis for each user in a JSON file).
+  -User have a dummy page for "Medical Records", this page supposed to show previous appointments, and any perscriptions.
+  -User have a dummy page for "Doctor's Request", this page supposed to show a "Form" which the paitent will fill with
+  his request like "Renew Perscription" and such.
+
+- Pages:
+  -My Appointments - this page shows the patient's appointments and their status ("Pending","Been" or something like that).
+  -New Appointment - This page shows all the Categories of doctors, (most of them empty because a doctor needs to be created.).
+  a doctor is added to that category when creating a new doctor and choosing his "Speciality".
+  Uppon selecting a category, a page with all available doctors will be shown (Cards), where each card shows the
+  Doctor's Info and Review and such.
+  -(Reviews\Rating) - hasn't been added yet, it work in progress.
+
+2. Doctor Functionalities:
+   -Shifts CRUD:
+   -Doctors can create a fill their "Shift" schedule, this shift is the appointment a patient can make for himself.
+
+   - Deleteing Shift, removes from Appointments and updated the patient who made an appointment for that specific shift.
+   - each shift has "Availability" field which default to "True", when a patient appoints himself to that shift then the shift
+     become unavailable which disables the option for other patients to reserve that appointment.
+     -Chat:
+   - Basically the same as the user.
+
+3. Admin Functionalities:
+
+So to create a doctor, logging in as an Admin is a must.
+
+1.Create a Clinic, because Doctor needs to be assigned to a clinic inorder to showup on any of the frontend parts.
+2.Create a Doctor.
+3.Create a Patient (regular registartion on the register page.). 4. Explore Patient, Doctor, Admin possabilities.
+
+---
+
+    Inorder to create an "Admin", navigate to "localhost:{port}/admin/create", it will automatically create a new admin
+    and navigate you to the login page,
+
+The credentials for admin are as follows:
+Email: admin@admin.com
+Password: admin
+This will navigate to the "Admin Panel".
+
+---
+
+-Admin Panel:
+-CRUD for Doctors.
+-CRUD for Clinics.
+
+Only Admin can create a new Doctor, or a new Clinic or update\remove them and such.
+
+4. CSS:
+
+- The CSS of the app is still "Dummy", made it to not look too bad but still needs alot of work.
+- Responsivness:
+- Somewhat responsive, still having some issues with the responsivness of some components.
+
+5. CODE:
+
+- NodeJS - need to refactor some of the code, alot of the code was created and modified "on the fly",
+  at first some of the functions were supposed to do "X", but then i've added something new and i needed it
+  to also do "Y", and then i modified and added and such.
+
+  - Categories and Illnesses - the data is coming from using a web-scrapper and saving the data into JSON files.
+
+- JS(Front) - Same thing here it needs to be refactored, I have many components that almost do the same so i need to
+  just create some Hooks or move things to be a component of it own.
+
+  All the mess is because as i've worked on the porject many idea popped and i've added them and had to make it work
+  with everything i've built before.
+
+  Now im just recreating this project using Typescript so im just "Cutting" the code from this and making it more organaized
+  and more modular.
+
+Currently working on:
+
+- Forgot Password "System".
+- Removing Chat by one participant(leave the history of chat? or remove the whole chat? dont know yet).
+- Complete The Doctor and Patient Pages.
+- Responsivness and CSS.
+- Refactor.
+- Middlewares on the backend(have some but not the "best").
+- JWT Refresh token.
+- Error handling (for now most of them are console.logs ).
+- Tests.
+
+What i've learned from this project:
+
+- Mongoose Middlewares.
+- Redux(Specially Redux-Persist).
+- WebSocket.io
+- Web Scrapping(a bit).
