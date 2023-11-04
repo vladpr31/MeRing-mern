@@ -1,0 +1,182 @@
+import React, { useEffect } from "react";
+import Logo from "../../../Assets/logo.png";
+import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
+import MessageIndicator from "../MessageIndicator";
+import { logout } from "../../../Redux/Actions/authActions";
+import { getSocket } from "../../../api/socket";
+import useWindowSize from "../../../hooks/useWindowSize";
+import SideDrawer from "./SideDrawer";
+const DashboardNavbar = ({ currViewHandler }) => {
+  const { auth } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
+  const { width } = useWindowSize();
+  const location = useNavigate();
+  const isMobile = width <= 1024;
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout(location));
+  };
+  const tabHandler = (tab) => {
+    document.activeElement.blur();
+    currViewHandler(tab);
+  };
+  //useEffect to "Disconnect user from chat" when leaving the chat page.
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("activeChat"))) {
+      const socket = dispatch(getSocket());
+      const currentUrl = window.location.href;
+      const activeChat = JSON.parse(localStorage.getItem("activeChat"));
+      if (!currentUrl.includes("inbox")) {
+        // Emit the "leave_room" event
+        socket.emit("leave_room", {
+          chatId: activeChat.split("_")[1],
+          firstName: user.firstName,
+          lastName: user.lastName,
+        });
+        localStorage.removeItem("activeChat");
+      }
+    }
+  }, [window.location.href]);
+  return (
+    <div
+      className={`navbar bg-white h-fit bg-opacity-20 ${
+        isMobile ? "flex justify-between" : ""
+      }`}
+    >
+      <div className={`${isMobile ? "" : "flex-1"}`}>
+        {isMobile ? (
+          <SideDrawer currViewHandler={currViewHandler} />
+        ) : (
+          <a className="btn btn-ghost normal-case text-xl" href="/">
+            <img src={Logo} className="h-[40px] w-[125px] lg:w-[100px] " />
+          </a>
+        )}
+      </div>
+
+      <div className="flex justify-between">
+        {auth.role !== "admin" ? (
+          <div className="indicator">
+            <Link to={`/${auth.role}/${auth.id}/inbox`} className="w-fit h-fit">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                size="xl"
+                style={{ color: "white" }}
+              />
+              <MessageIndicator globalNotifications={true} />
+            </Link>
+          </div>
+        ) : null}
+
+        <div className="dropdown dropdown-end rounded-full pl-6 hover:cursor-pointer">
+          <div
+            className="avatar online mask mask-decagon w-12 rounded-full "
+            tabIndex={0}
+          >
+            <img
+              className="bg-red-500"
+              src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png"
+            />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-gray-700 bg-opacity-80 text-white rounded-box w-52"
+          >
+            <li
+              className="hover:bg-white hover:bg-opacity-50 rounded-xl"
+              onClick={() => tabHandler("Dashboard")}
+            >
+              {auth.role !== "admin" ? (
+                <Link
+                  to={`/${auth.role}/${auth.id}`}
+                  replace={true}
+                  className="h-fit"
+                >
+                  My Dashboard
+                </Link>
+              ) : (
+                <Link to={"/admin"} replace={true}>
+                  Admin Panel
+                </Link>
+              )}
+            </li>
+            {auth.role !== "admin" ? (
+              <li
+                className="hover:bg-white hover:bg-opacity-50 rounded-xl"
+                onClick={() => tabHandler("Edit Profile")}
+              >
+                <Link
+                  to={`/${auth.role}/${auth.id}/profile`}
+                  replace={true}
+                  className="h-fit"
+                >
+                  My Profile
+                </Link>
+              </li>
+            ) : null}
+            {auth.role === "doctor" ? (
+              <>
+                <li className="hover:bg-white hover:bg-opacity-50 rounded-xl">
+                  <Link to={`/${auth.role}/${auth.id}/my-shifts`}>
+                    My Shifts
+                  </Link>
+                </li>
+                <li className="hover:bg-white hover:bg-opacity-50 rounded-xl">
+                  <Link to={`/${auth.role}/${auth.id}/my-appointments`}>
+                    My Appointments
+                  </Link>
+                </li>
+              </>
+            ) : auth.role === "user" ? (
+              <>
+                <li
+                  className="hover:bg-white hover:bg-opacity-50 rounded-xl"
+                  onClick={() => tabHandler("New Appointment")}
+                >
+                  <Link
+                    to={`/${auth.role}/${auth.id}/new-appointment`}
+                    replace={true}
+                    className="h-fit"
+                  >
+                    Create Appointment
+                  </Link>
+                </li>
+                <li
+                  className="hover:bg-white hover:bg-opacity-50 rounded-xl"
+                  onClick={() => tabHandler("My Analysis")}
+                >
+                  <Link
+                    to={`/${auth.role}/${auth.id}/analysis`}
+                    replace={true}
+                    className="h-fit"
+                  >
+                    My Analysis
+                  </Link>
+                </li>
+                <li
+                  className="hover:bg-white hover:bg-opacity-30 rounded-xl"
+                  onClick={() => tabHandler("My Appointments")}
+                >
+                  <Link
+                    to={`/${auth.role}/${auth.id}/my-appointments`}
+                    replace={true}
+                    className="h-fit"
+                  >
+                    My Appointments
+                  </Link>
+                </li>
+              </>
+            ) : null}
+            <li className="hover:bg-white hover:bg-opacity-50 rounded-xl">
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardNavbar;
