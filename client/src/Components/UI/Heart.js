@@ -1,5 +1,5 @@
 import React from "react";
-import Pulse from "../UI/Pulse";
+
 import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MechanicalHearrt from "../../Assets/heart2.png";
@@ -39,7 +39,6 @@ const Heart = () => {
               </p>
             </div>
           </div>
-          {/* <Pulse /> */}
         </div>
       </div>
     </div>

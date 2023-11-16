@@ -20,7 +20,7 @@ const Navbar = () => {
     } else {
       setNavBarState(true);
     }
-  }, [window.location.href]);
+  }, [auth?.id]);
   return navBarState ? (
     <div className="drawer-end">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -100,6 +100,7 @@ const Navbar = () => {
                           </li>
                         );
                       }
+                      return null;
                     })
                   : NavItems.map((item, index) => {
                       if (
@@ -113,6 +114,8 @@ const Navbar = () => {
                             </a>
                           </li>
                         );
+                      } else {
+                        return null;
                       }
                     })}
               </ul>
@@ -179,6 +182,7 @@ const Navbar = () => {
                     </li>
                   );
                 }
+                return null;
               })
             : NavItems.map((item, index) => {
                 if (item.title !== "My Profile" && item.title !== "Logout") {
@@ -191,6 +195,7 @@ const Navbar = () => {
                     </li>
                   );
                 }
+                return null;
               })}
         </ul>
       </div>

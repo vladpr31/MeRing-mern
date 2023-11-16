@@ -21,9 +21,9 @@ const chatReducer = (state, action) => {
       return { ...state, rooms: action.payload };
     case SET_MESSAGE_NOTIFICATION:
       return { ...state, notifications: action.payload };
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export default chatReducer;

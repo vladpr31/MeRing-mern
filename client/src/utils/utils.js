@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBars,
   faRightFromBracket,
-  faSuitcase,
   faUser,
   faPenToSquare,
   faRightToBracket,

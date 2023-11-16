@@ -1,4 +1,4 @@
-import usePagination, { DOTS } from "../hooks/usePagination";
+import usePagination from "../hooks/usePagination";
 
 const Pagination = (props) => {
   const {

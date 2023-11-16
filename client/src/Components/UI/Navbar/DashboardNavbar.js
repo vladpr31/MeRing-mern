@@ -9,10 +9,12 @@ import { logout } from "../../../Redux/Actions/authActions";
 import { getSocket } from "../../../api/socket";
 import useWindowSize from "../../../hooks/useWindowSize";
 import SideDrawer from "./SideDrawer";
+import { useLocation } from "react-router-dom";
 const DashboardNavbar = ({ currViewHandler }) => {
   const { auth } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
   const { width } = useWindowSize();
+  const currPath = useLocation();
   const location = useNavigate();
   const isMobile = width <= 1024;
   const dispatch = useDispatch();
@@ -27,9 +29,8 @@ const DashboardNavbar = ({ currViewHandler }) => {
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("activeChat"))) {
       const socket = dispatch(getSocket());
-      const currentUrl = window.location.href;
       const activeChat = JSON.parse(localStorage.getItem("activeChat"));
-      if (!currentUrl.includes("inbox")) {
+      if (!currPath.pathname.includes("inbox")) {
         // Emit the "leave_room" event
         socket.emit("leave_room", {
           chatId: activeChat.split("_")[1],
@@ -39,7 +40,7 @@ const DashboardNavbar = ({ currViewHandler }) => {
         localStorage.removeItem("activeChat");
       }
     }
-  }, [window.location.href]);
+  }, [user.firstName, user.lastName, dispatch, currPath.pathname]);
   return (
     <div
       className={`navbar bg-white h-fit bg-opacity-20 ${
@@ -51,7 +52,11 @@ const DashboardNavbar = ({ currViewHandler }) => {
           <SideDrawer currViewHandler={currViewHandler} />
         ) : (
           <a className="btn btn-ghost normal-case text-xl" href="/">
-            <img src={Logo} className="h-[40px] w-[125px] lg:w-[100px] " />
+            <img
+              src={Logo}
+              className="h-[40px] w-[125px] lg:w-[100px] "
+              alt="logo"
+            />
           </a>
         )}
       </div>
@@ -78,6 +83,7 @@ const DashboardNavbar = ({ currViewHandler }) => {
             <img
               className="bg-red-500"
               src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png"
+              alt="avatar"
             />
           </div>
           <ul

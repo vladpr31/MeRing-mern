@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "./Card.css";
 import {
   faHeartPulse,
@@ -8,46 +7,11 @@ import {
   faStethoscope,
   faTemperatureQuarter,
   faFileWaveform,
-  faQuestion,
   faCircleExclamation,
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-
 const Card = ({ props }) => {
-  const [random, setRandom] = useState({
-    percentage: 0,
-    colour: "hsl(0, 0%, 0%)",
-  });
-
-  const generateRandomValues = () => {
-    let percentage;
-    if (props.type === "Blood Pressure") {
-      console.log(props.firstValue, props.secondValue);
-      percentage = (props.secondValue / props.firstValue) * 100;
-    } else {
-      percentage = (props.value / props.maxValue) * 100;
-    }
-    let color;
-    if (0 < percentage && percentage <= 30) {
-      color = `hsl(98, 82%, 56%)`;
-    }
-    if (30 < percentage && percentage <= 50) {
-      color = `hsl(39, 87%, 42%)`;
-    }
-    if (50 < percentage && percentage <= 70) {
-      color = `hsl(14, 77%, 43%)`;
-    }
-    if (percentage > 70) {
-      color = `hsl(0, 92%, 50%)`;
-    }
-
-    setRandom({
-      percentage,
-      colour: color,
-    });
-  };
   const iconPicker = (type) => {
     if (type === "Heart Rate") {
       return (
@@ -91,9 +55,6 @@ const Card = ({ props }) => {
       );
     }
   };
-  useEffect(() => {
-    generateRandomValues();
-  }, []);
 
   return (
     <div className="flex flex-col h-fit bg-white p-4 rounded-xl bg-opacity-30 backdrop-blur-sm backdrop-filter border-dashed border-2  border-white">

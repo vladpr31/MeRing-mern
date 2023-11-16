@@ -5,14 +5,32 @@ import { getSocket } from "../../api/socket";
 const MessageIndicator = ({ chatId, globalNotifications }) => {
   const dispatch = useDispatch();
   const { notifications } = useSelector((state) => state.chats);
-  const [socket, setSocket] = useState(dispatch(getSocket()));
+  const [socket, setSocket] = useState(null);
+
   useEffect(() => {
-    socket.on("notifications", (data) => {
-      if (JSON.stringify(notifications) !== JSON.stringify(data)) {
-        dispatch(setMessageNotifications(data));
-      }
-    });
-  }, [socket, Object.keys(notifications).length, notifications.total]);
+    const initializeSocket = async () => {
+      const initSocket = await dispatch(getSocket());
+      setSocket(initSocket);
+    };
+
+    initializeSocket();
+
+    // Use socket in the effect without adding it to the dependency array
+    if (socket) {
+      socket.on("notifications", (data) => {
+        if (JSON.stringify(notifications) !== JSON.stringify(data)) {
+          dispatch(setMessageNotifications(data));
+        }
+      });
+    }
+
+    // Cleanup the event listener when the component unmounts
+    // return () => {
+    //   if (socket) {
+    //     socket.off("notifications");
+    //   }
+    // };
+  }, [dispatch, notifications, socket]);
 
   if (globalNotifications) {
     return (

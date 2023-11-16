@@ -79,7 +79,7 @@ const UserInfo = () => {
               type: "Body Temperature",
               metrics: "°C",
               value: Math.floor(Math.random() * (45 - 35) + 35),
-              maxValue: 45,
+              maxValue: 40,
             }}
           />
         </div>

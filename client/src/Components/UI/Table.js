@@ -49,6 +49,8 @@ const Table = ({ props }) => {
                   </td>
                 </tr>
               );
+            } else {
+              return null;
             }
           })}
         </tbody>

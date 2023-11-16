@@ -14,14 +14,14 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
 
   if (data?.length <= 0 || !data) {
     return (
-      <ul role="list" className="divide-y divide-gray-200 w-full">
+      <ul className="divide-y divide-gray-200 w-full">
         <li className="py-4 lg:py-3 text-white">Nothing Scheduled For Now.</li>
       </ul>
     );
   } else {
     if (type === "userAppointments") {
       return (
-        <ul role="list" className="divide-y divide-gray-200 w-full">
+        <ul className="divide-y divide-gray-200 w-full">
           {data?.map((item, index) => {
             return (
               <li className="py-4 lg:py-3" key={index}>
@@ -30,6 +30,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                     <img
                       className="w-[50px] h-[50px]"
                       src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png"
+                      alt="avatar-holder"
                     />
                   </div>
                   <div className="flex-1 min-w-0 grow-1">
@@ -93,7 +94,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
   }
   if (type === "doctorShifts") {
     return (
-      <ul role="list" className="divide-y divide-gray-200 w-full">
+      <ul className="divide-y divide-gray-200 w-full">
         {data?.map((shift, index) => {
           return (
             <li
@@ -145,7 +146,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
   }
   if (type === "doctorAppointments") {
     return (
-      <ul role="list" className="divide-y divide-gray-200 w-full ">
+      <ul className="divide-y divide-gray-200 w-full ">
         {data?.map((item, index) => {
           return (
             <li className="py-4 lg:py-3" key={index}>
@@ -154,6 +155,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                   <img
                     className="w-[50px] h-[50px]"
                     src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png"
+                    alt="avatar-holder"
                   />
                 </div>
                 <div className="flex-1 min-w-0 grow-1">

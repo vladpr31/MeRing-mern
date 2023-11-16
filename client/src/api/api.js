@@ -1,7 +1,6 @@
 import axios from "axios";
-import { logout } from "../Redux/Actions/authActions";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const tempBeforeDotEnv = "http://localhost:8000";
+const tempBeforeDotEnv = BASE_URL;
 const API = axios.create({ baseURL: tempBeforeDotEnv });
 
 //Axios Interceptor, before each call send Authorixation in the headers as {Key,Value}=>{bearer,token}

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../../UI/Loader";
-import DashboardNavbar from "../../../UI/Navbar/DashboardNavbar";
 import TableList from "../../../UI/TableList";
 import ShiftForm from "../../../Forms/ShiftForm";
 import { removeShift } from "../../../../Redux/Actions/doctorActions";
@@ -16,7 +15,6 @@ const WorkerPage = () => {
   const dispatch = useDispatch();
   const { width } = useWindowSize();
   const isMobile = width <= 1024;
-  const [forceRerender, setForceRerender] = useState(false);
   const removeShiftHandler = (shiftId) => {
     dispatch(removeShift(auth.id, shiftId));
   };
@@ -31,7 +29,7 @@ const WorkerPage = () => {
           isMobile ? "" : "backdrop-brightness-150"
         } w-fit mx-auto p-2 rounded-full`}
       >
-        {greetingText + " " + "Dr. " + user.firstName + " " + user.lastName}
+        {greetingText + " Dr. " + user.firstName + " " + user.lastName}
       </h1>
       <div className="flex p-4 gap-y-4 lg:gap-x-4 flex-col justify-between lg:justify-evenly lg:flex-row">
         <div

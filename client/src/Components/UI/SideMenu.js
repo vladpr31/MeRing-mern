@@ -33,7 +33,7 @@ const SideMenu = ({ props }) => {
     if (localStorage.getItem("currTab") !== currActiveTab) {
       setCurrActiveTab(localStorage.getItem("currTab"));
     }
-  }, [localStorage.getItem("currTab")]);
+  }, [currActiveTab]);
   return (
     <div className="flex">
       <div
