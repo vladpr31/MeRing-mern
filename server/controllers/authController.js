@@ -3,8 +3,8 @@ const validation = require("../middlewares/validation-middleware");
 
 const login = async (req, res) => {
   try {
+    console.log("trying to connect");
     const response = await authBLL.userLogin(req.body);
-
     if (response && typeof response !== "string") {
       res.status(201).json(response);
     } else {

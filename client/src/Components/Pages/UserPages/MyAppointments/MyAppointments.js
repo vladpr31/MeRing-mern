@@ -33,8 +33,8 @@ const MyAppointments = () => {
   return loading ? (
     <h1>Loading...</h1>
   ) : (
-    <div className="flex w-full py-12 lg:w-[80%] mx-auto ">
-      <table className="table table-xs lg:table-md bg-white bg-opacity-30 border-seperate">
+    <div className="flex w-full py-12 lg:w-[80%] mx-auto lg:h-fit ">
+      <table className="table table-xs lg:table-md bg-white bg-opacity-30 border-seperate ">
         <thead>
           <tr className="text-white">
             <th>Doctor</th>

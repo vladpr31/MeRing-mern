@@ -43,7 +43,6 @@ const LoginPage = () => {
       userInput.email.includes("@") &&
       userInput.password.length >= 6
     ) {
-      console.log("login");
       const response = await dispatch(login(userInput, navigate));
       if (response) {
         setError(response.error);

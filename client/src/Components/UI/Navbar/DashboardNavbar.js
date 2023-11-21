@@ -43,7 +43,7 @@ const DashboardNavbar = ({ currViewHandler }) => {
   }, [user.firstName, user.lastName, dispatch, currPath.pathname]);
   return (
     <div
-      className={`navbar bg-white h-fit bg-opacity-20 ${
+      className={`navbar bg-white h-fit relative bg-opacity-20 ${
         isMobile ? "flex justify-between" : ""
       }`}
     >

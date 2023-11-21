@@ -48,7 +48,7 @@ const ProtectedRoutes = ({ children }) => {
   if (socket) {
     return (
       <CookiesProvider>
-        <div className="bg-[url('./Assets/bg4.jpg')] lg:h-screen xl:h-screen">
+        <div className="bg-[url('./Assets/bg4.jpg')]">
           <UserPage>{children}</UserPage>
         </div>
       </CookiesProvider>

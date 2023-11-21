@@ -39,7 +39,7 @@ const NewAppointment = () => {
     return <Loader />;
   }
   return (
-    <div className={`p-8 mx-auto flex flex-col justify-between w-full`}>
+    <div className={`px-8 py-20 mx-auto flex flex-col justify-between w-full`}>
       <DoctorSearch
         categories={categories}
         searchHandler={searchHandler}

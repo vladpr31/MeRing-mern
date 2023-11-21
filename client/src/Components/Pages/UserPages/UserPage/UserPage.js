@@ -19,10 +19,10 @@ const UserPage = ({ children }) => {
     return <Loader />;
   } else {
     return (
-      <>
+      <div className="lg:h-screen lg:overflow-y-hidden">
         <DashboardNavbar currViewHandler={currentViewHandler} />
 
-        <div className="pb-20 lg:pb-0 xl:pb-0 flex bg-white bg-opacity-20 grow ">
+        <div className="flex bg-white lg:h-screen bg-opacity-20">
           {!isMobile && auth.role !== "doctor" && auth.role !== "admin" ? (
             <SideMenu
               props={{
@@ -35,7 +35,7 @@ const UserPage = ({ children }) => {
           ) : null}
           {children}
         </div>
-      </>
+      </div>
     );
   }
 };

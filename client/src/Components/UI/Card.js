@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./Card.css";
+
 import {
   faHeartPulse,
   faDna,
@@ -65,7 +65,7 @@ const Card = ({ props }) => {
         <p className="badge badge-lg ">{props.type}</p>
       </div>
       <div className="stat bg-white w-fit mx-auto bg-opacity-20 rounded-full border-2 border-white border-dotted">
-        <div className="stat-figure text-secondary ">
+        <div className="stat-figure text-secondary tooltip">
           {props?.value < props?.maxValue ? (
             <FontAwesomeIcon
               icon={faCircleCheck}
@@ -87,6 +87,8 @@ const Card = ({ props }) => {
           <sup className="text-[10px] font-medium ml-2">{props.metrics}</sup>
         </div>
       </div>
+
+      {/*More Info Goes Here */}
     </div>
   );
 };

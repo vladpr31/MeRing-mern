@@ -19,7 +19,7 @@ const MedicalRecords = () => {
   return loading ? (
     <h1>Loading Data..</h1>
   ) : (
-    <div className="pl-12">
+    <div className="pl-12 w-full text-center">
       <Table
         props={{
           tableName: "Last Doctor Visits",

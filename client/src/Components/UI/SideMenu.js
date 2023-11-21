@@ -39,7 +39,7 @@ const SideMenu = ({ props }) => {
       <div
         className={` ${
           isOpen
-            ? "bg-white backdrop-blur-lg backdrop-filter bg-opacity-20 w-60 p-2"
+            ? "bg-white h-screen bg-opacity-20 w-60 p-2"
             : " w-14 rounded-r-md"
         } duration-300`}
       >

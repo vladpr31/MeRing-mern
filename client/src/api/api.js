@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const tempBeforeDotEnv = BASE_URL;
-const API = axios.create({ baseURL: tempBeforeDotEnv });
+
+const API = axios.create({ baseURL: BASE_URL });
 
 //Axios Interceptor, before each call send Authorixation in the headers as {Key,Value}=>{bearer,token}
 API.interceptors.request.use((req, res) => {
@@ -10,7 +10,6 @@ API.interceptors.request.use((req, res) => {
       JSON.parse(localStorage.getItem("profile")).accessToken
     }`;
   }
-
   return req;
 });
 API.interceptors.response.use(
@@ -37,6 +36,7 @@ export const register = (info) => {
   return API.post("/auth/register", { info });
 };
 export const login = (userCredentials) => {
+  console.log("in login api call");
   return API.post("/auth/login", userCredentials);
 };
 

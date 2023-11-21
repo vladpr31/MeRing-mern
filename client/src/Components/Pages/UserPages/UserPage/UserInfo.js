@@ -54,7 +54,7 @@ const UserInfo = () => {
             Latest Vitals
           </h1>
         ) : null}
-        {isMobile ? <Heart /> : null}
+        {isMobile ? <Heart isMobile={isMobile} /> : null}
         <div className="flex gap-x-4 gap-y-4 flex-col xl:flex-row lg:flex-col md:flex-col ">
           <Card
             props={{
@@ -107,7 +107,7 @@ const UserInfo = () => {
           </div>
         </div>
       </div>
-      {isMobile ? null : <Heart />}
+      {isMobile ? null : <Heart isMobile={isMobile} />}
     </div>
   );
 };

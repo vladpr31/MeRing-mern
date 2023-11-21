@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-#root{
-  height: 100%;
-  overflow: auto;
-}
+
 /*Removing arrows from input type=number field*/
 @layer base {
     input[type='number']::-webkit-outer-spin-button,
