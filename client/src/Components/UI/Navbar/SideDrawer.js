@@ -37,7 +37,11 @@ const SideDrawer = ({ currViewHandler }) => {
       />
       <div className="drawer-content flex flex-col items-center justify-center">
         <label htmlFor="my-drawer-2" className="btn btn-square btn-ghost">
-          <FontAwesomeIcon icon={faBars} size="lg" style={{ color: "white" }} />
+          <FontAwesomeIcon
+            icon={faBars}
+            size="lg"
+            style={{ color: "#52514f" }}
+          />
         </label>
       </div>
       <div className="drawer-side">

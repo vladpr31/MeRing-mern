@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background-color: #d5d4d4;
+}
 
 /*Removing arrows from input type=number field*/
 @layer base {

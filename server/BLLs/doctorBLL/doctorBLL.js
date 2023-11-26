@@ -11,8 +11,8 @@ const createNewDoctorWithCredential = async (doctorDetails) => {
   return doctor;
 };
 
-const updateDoctor = (doctorID, updatedDetails) => {
-  return doctorDAL.updateDoctor(doctorID, updatedDetails);
+const updateDoctor = (doctorID, updateField, updatedDetails) => {
+  return doctorDAL.updateDoctor(doctorID, updateField, updatedDetails);
 };
 const updateDoctorShifts = (doctorID, shift) => {
   return doctorDAL.updateDoctorShifts(doctorID, shift);

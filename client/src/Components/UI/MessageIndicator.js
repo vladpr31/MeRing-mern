@@ -34,13 +34,13 @@ const MessageIndicator = ({ chatId, globalNotifications }) => {
 
   if (globalNotifications) {
     return (
-      <span className="indicator-item badge badge-success indicator-bottom event-pointer-none">
+      <span className="indicator-item badge badge-info indicator-bottom event-pointer-none">
         {notifications.total || 0}
       </span>
     );
   } else {
     return notifications[chatId] && notifications[chatId][0] !== 0 ? (
-      <span className="indicator-item badge badge-success indicator-bottom event-pointer-none">
+      <span className="indicator-item badge badge-info indicator-bottom event-pointer-none">
         {notifications[chatId][0]}
       </span>
     ) : null;

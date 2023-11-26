@@ -39,7 +39,7 @@ const NewAppointment = () => {
     return <Loader />;
   }
   return (
-    <div className={`px-8 py-20 mx-auto flex flex-col justify-between w-full`}>
+    <div className={`px-8 py-20 mx-auto  flex flex-col justify-between w-full`}>
       <DoctorSearch
         categories={categories}
         searchHandler={searchHandler}
@@ -48,15 +48,15 @@ const NewAppointment = () => {
       />
 
       <div
-        className={`grid auto-rows-fr grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${
-          isMobile ? "grid-cols-3 p-5" : "grid-cols-5 p-10"
+        className={`grid auto-rows-fr ${
+          isMobile ? "grid-cols-3 p-5" : "grid-cols-4 p-10"
         } gap-5 h-full`}
       >
         {currentPageData.map((category, index) => {
           return (
             <div
               key={index}
-              className="bg-white shadow-xl w-full h-full rounded-lg text-center flex items-center justify-center text-[auto] hover:bg-blue-500 hover:scale-110 hover:duration-300 hover:text-white"
+              className="bg-white shadow-xl w-full rounded-lg p-2 text-center flex items-center justify-center text-[auto] hover:bg-blue-500 hover:scale-110 hover:duration-300 hover:text-white"
             >
               <Link
                 to={`/user/${id}/new-appointment/${category

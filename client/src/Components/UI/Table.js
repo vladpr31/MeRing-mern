@@ -3,7 +3,9 @@ import React from "react";
 const Table = ({ props }) => {
   return (
     <div className="w-full">
-      <h3 className="underline text-[26px] text-white">{props.tableName}</h3>
+      <h3 className="underline text-[26px] text-[#52514f]">
+        {props.tableName}
+      </h3>
       <table className="table mb-3" key={Math.floor(Math.random() * 91239)}>
         {/* head */}
         <thead>
@@ -11,7 +13,7 @@ const Table = ({ props }) => {
             <th></th>
             {props.tableHeadings.map((thName, index) => {
               return (
-                <th key={index} className="text-white">
+                <th key={index} className="text-[#52514f]">
                   {thName}
                 </th>
               );
@@ -26,15 +28,15 @@ const Table = ({ props }) => {
             ) {
               return (
                 <tr key={index}>
-                  <th className="text-white">{index + 1}</th>
+                  <th className="text-[#52514f]">{index + 1}</th>
 
-                  <td className="text-white">
+                  <td className="text-[#52514f]">
                     {appointment.doctor.firstName +
                       " " +
                       appointment.doctor.lastName}
                   </td>
 
-                  <td className="text-white">
+                  <td className="text-[#52514f]">
                     {appointment.clinic.clinicName}
                     <br />
                     <span className="badge badge-ghost">
@@ -42,7 +44,7 @@ const Table = ({ props }) => {
                     </span>
                   </td>
 
-                  <td className="text-white">
+                  <td className="text-[#52514f]">
                     {new Date(
                       appointment.appointmentDateTime
                     ).toLocaleDateString("en-GB")}

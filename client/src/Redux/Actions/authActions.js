@@ -9,7 +9,6 @@ export const register = (info, location) => async (dispatch) => {
   ) {
     return newUser.data;
   } else {
-    console.log(newUser.data);
     dispatch({ type: REGISTER, payload: newUser.data });
     location(`/${newUser.data.role}/${newUser.data.id}`);
   }

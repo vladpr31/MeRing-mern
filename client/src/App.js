@@ -59,7 +59,7 @@ function App() {
           }
         />
         <Route
-          path="/:role/:id/analysis"
+          path="/:role/:id/diagnosis"
           element={<ProtectedRoute>{<PatientAnalysis />}</ProtectedRoute>}
         />
         <Route

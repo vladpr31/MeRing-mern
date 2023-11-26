@@ -8,18 +8,18 @@ const doctorModel = new mongoose.Schema({
   clinic: { type: mongoose.Schema.Types.ObjectId, ref: "Clinics" },
   rating: [
     {
-      reviewer: { type: mongoose.Schema.Types.ObjectId, ref: "Patient" },
-      rating: Number,
-      reviewText: String,
-      datePosted: Date,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
     },
   ],
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointments" }],
   shifts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Shifts" }],
+  profileImage: Object,
 });
 
 //adds the docots to the clinic workers collection.
 doctorModel.pre("save", async function (next) {
+  console.log("from doctore presave:", this);
   await Clinic.findByIdAndUpdate(this.clinic.toString(), {
     $addToSet: { clinicWorkers: this },
   })

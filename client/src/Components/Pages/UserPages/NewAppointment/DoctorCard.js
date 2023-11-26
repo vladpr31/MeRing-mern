@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faMessage } from "@fortawesome/free-solid-svg-icons";
-import Appointment from "../../../../Assets/doctor.png";
+import AppointmentBlack from "../../../../Assets/doctor-black.png";
+import AppointmentWhite from "../../../../Assets/doctor-white.png";
 import AppointmentModal from "./AppointmentModal";
 import useWindowSize from "../../../../hooks/useWindowSize";
-import ReviewModal from "./ReviewModal";
+import ReviewModal from "../Reviews/ReviewModal";
 const DoctorCard = ({ props }) => {
+  //Didn't have an appropriate Icon so made 1 black and 1 white and change between them with mouseover event.
+  const [mouseHover, setMouseHover] = useState(false);
+  const mouseHoverHandler = () => {
+    setMouseHover(!mouseHover);
+  };
+
   const handleAppointmentModal = () => {
     document.getElementById(`appointment_modal_${props.index}`).showModal();
   };
@@ -21,12 +28,14 @@ const DoctorCard = ({ props }) => {
     return (
       <>
         <div className="relative flex flex-col mx-auto md:flex-row rounded-xl shadow-lg p-3 mt-2 border border-white bg-white">
-          <div className="avatar mx-auto">
-            <div className=" mask mask-hexagon bg-purple-400">
-              <img src="https://cdn-icons-png.flaticon.com/256/6069/6069189.png" />
+          <div className="avatar mx-auto items-center p-2">
+            <div className="bg-purple-400 rounded-full w-24 h-24 mx-auto">
+              <img
+                src={props.doctor.profileImage.large}
+                className="object-scale-down"
+              />
             </div>
           </div>
-
           <div className="w-full items-center lg:items-start bg-white flex flex-col space-y-2 ">
             <div className="flex justify-between flex-col items-center">
               <p className="text-gray-500 font-medium  md:block">
@@ -44,7 +53,7 @@ const DoctorCard = ({ props }) => {
                     className="text-gray-500 ml-2 font-normal hover:underline"
                     onClick={handleReviewModal}
                   >
-                    ({props.doctor.rating.length} Review)
+                    ({props.doctor.rating.length} Reviews)
                   </button>
                 </p>
               </div>
@@ -61,13 +70,21 @@ const DoctorCard = ({ props }) => {
           </div>
           <div>
             <button
-              className="text-left w-full lg:h-fit mg:h-fit lg:w-fit md:w-fit  outline-none text-center mx-auto bg-teal-200 border-2 border-black rounded-xl justify-end h-[50px] w-[50px] hover:bg-green-400"
+              className="text-left w-full lg:h-fit mg:h-fit lg:w-fit md:w-fit  outline-none text-center mx-auto rounded-xl justify-end h-[35px] w-[35px] hover:bg-green-600"
               onClick={handleAppointmentModal}
             >
-              {width > 768 ? <img src={Appointment} /> : "Schedule Now"}
+              {width > 768 ? (
+                <img
+                  src={mouseHover ? AppointmentWhite : AppointmentBlack}
+                  onMouseOver={mouseHoverHandler}
+                  onMouseOut={mouseHoverHandler}
+                />
+              ) : (
+                "Schedule Now"
+              )}
             </button>
-            <button className="text-left w-full outline-none text-center mx-auto bg-teal-200 border-2 border-black rounded-xl justify-end h-[50px] w-[50px] hover:bg-green-400">
-              <FontAwesomeIcon icon={faMessage} size="xl" />
+            <button className="text-left w-full outline-none hover:text-white text-center mx-auto rounded-xl justify-end h-[50px] w-[50px] hover:bg-green-600">
+              <FontAwesomeIcon icon={faMessage} size="lg" />
             </button>
           </div>
         </div>
@@ -81,7 +98,7 @@ const DoctorCard = ({ props }) => {
           id={`review_modal_${props.index}`}
           className="modal sm:modal-middle"
         >
-          <ReviewModal props={{ doctor: props.doctor }} />
+          <ReviewModal doctor={{ doctor: props.doctor }} />
         </dialog>
       </>
     );

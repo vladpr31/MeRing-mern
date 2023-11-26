@@ -50,11 +50,10 @@ const AdminPage = () => {
     fetchAllData();
   }, []);
   return (
-    <div className="h-full">
-      <div className="flex flex-col justify-between bg-gray-700 text-white h-full">
-        <DashboardNavBar />
+    <div className="h-[calc(100dvh)]">
+      <div className="flex flex-col justify-evenly text-[#595757] h-full">
         <h1 className="text-[48px] text-center">Hi, Admin.</h1>
-        <p className="text-center">
+        <p className="text-center font-bold">
           Here You Can Create - Delete - Edit - Doctors and Clinics. <br />
           (Creating Doctor with Credentials is like creating a worker who has
           his own page and such)

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const patientBLL = require("../patientBLL/patientBLL");
 const apotroposDAL = require("../../DALs/apotroposDAL");
 const userDAL = require("../../DALs/userDAL");
-const doctorDAL = require("../../DALs/doctorDAL");
+const doctorBLL = require("../doctorBLL/doctorBLL");
 require("dotenv").config();
 const generateJWTAccessToken = (userInfo) => {
   return jwt.sign(userInfo, process.env.JWT_ACCESS_TOKEN_SECRET, {
@@ -47,8 +47,10 @@ const registerUserWithApotropos = async (userInfo) => {
 const registerUserWithoutApotropos = async (userInfo) => {
   try {
     const user = await userDAL.checkAvailability(userInfo.newUser);
+    console.log(userInfo);
     if (!user) {
       const userResponse = await userDAL.createNewUser(userInfo.newUser);
+      userInfo.newPatient.profileImage = userInfo.profileImage;
       const patientResponse = await patientBLL.createNewPatient({
         patientInfo: userInfo.newPatient,
         account: userResponse._id,
@@ -86,15 +88,16 @@ const userLogin = async (userCredentials) => {
 
 const registerNewDoctor = async (doctorCreds) => {
   const taken = await userDAL.checkAvailability(doctorCreds.docCredentials);
-  console.log("taken?:", taken);
+
   if (!taken) {
     //creates account
     const workerResponse = await userDAL.createNewDoctor(
       doctorCreds.docCredentials
     );
-    console.log(doctorCreds.doctor);
+    console.log("in registerNeDoctor:", doctorCreds.doctor);
     //creates doctor after account is created.
-    await doctorDAL.createNewDoctorWithCredential({
+    doctorCreds.doctor.account = workerResponse._id;
+    await doctorBLL.createNewDoctorWithCredential({
       doctorInfo: doctorCreds.doctor,
       account: workerResponse._id,
     });

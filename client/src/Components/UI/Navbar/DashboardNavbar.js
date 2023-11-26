@@ -10,6 +10,8 @@ import { getSocket } from "../../../api/socket";
 import useWindowSize from "../../../hooks/useWindowSize";
 import SideDrawer from "./SideDrawer";
 import { useLocation } from "react-router-dom";
+const defaultAvatarUrl =
+  "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg";
 const DashboardNavbar = ({ currViewHandler }) => {
   const { auth } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
@@ -54,7 +56,7 @@ const DashboardNavbar = ({ currViewHandler }) => {
           <a className="btn btn-ghost normal-case text-xl" href="/">
             <img
               src={Logo}
-              className="h-[40px] w-[125px] lg:w-[100px] "
+              className="h-[40px] w-[125px] lg:w-[100px]"
               alt="logo"
             />
           </a>
@@ -68,21 +70,21 @@ const DashboardNavbar = ({ currViewHandler }) => {
               <FontAwesomeIcon
                 icon={faEnvelope}
                 size="xl"
-                style={{ color: "white" }}
+                style={{ color: "#52514f" }}
               />
               <MessageIndicator globalNotifications={true} />
             </Link>
           </div>
         ) : null}
 
-        <div className="dropdown dropdown-end rounded-full pl-6 hover:cursor-pointer">
-          <div
-            className="avatar online mask mask-decagon w-12 rounded-full "
-            tabIndex={0}
-          >
+        <div className="avatar online ml-6 dropdown dropdown-end hover:cursor-pointer">
+          <div className="mask mask-decagon w-12" tabIndex={0}>
             <img
-              className="bg-red-500"
-              src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png"
+              src={
+                user?.profileImage?.thumbnail
+                  ? user?.profileImage?.thumbnail
+                  : defaultAvatarUrl
+              }
               alt="avatar"
             />
           </div>

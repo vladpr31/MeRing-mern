@@ -1,4 +1,5 @@
 const Apotropos = require("../models/apotroposModel");
+
 const PatientDB = require("../models/patientModel");
 const mongoose = require("mongoose");
 
@@ -78,6 +79,18 @@ const getPatientAppointmentsByDoctor = (doctorId) => {
     },
   ]);
 };
+
+const updatePatient = async (userID, updateField, updateData) => {
+  const updateObject = { [updateField]: updateData };
+
+  const patient = await PatientDB.findOneAndUpdate(
+    { account: userID },
+    updateObject,
+    { new: true }
+  );
+
+  return patient;
+};
 module.exports = {
   createNewPatient,
   updateApotroposOfPatient,
@@ -85,4 +98,5 @@ module.exports = {
   addNewAppointment,
   getPatientByAccountID,
   getPatientAppointmentsByDoctor,
+  updatePatient,
 };

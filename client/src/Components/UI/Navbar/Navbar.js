@@ -27,9 +27,13 @@ const Navbar = () => {
       <div className="drawer-content w-full flex flex-col fixed top-0 z-[50] text-white">
         <div className="bg-white w-full backdrop-blur-lg backdrop-filter bg-opacity-20">
           <div className="w-full navbar">
-            <div className="flex-none lg:hidden">
+            <div className="flex-none lg:hidden ">
               <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
-                <FontAwesomeIcon icon={faBars} size="lg" />
+                <FontAwesomeIcon
+                  icon={faBars}
+                  size="lg"
+                  style={{ color: "#52514f" }}
+                />
               </label>
             </div>
             <div className="flex-1 px-2 mx-2 justify-end lg:justify-start">

@@ -1,5 +1,5 @@
 const patientBLL = require("../BLLs/patientBLL/patientBLL");
-
+const axios = require("axios");
 const getPatientByAccountID = async (req, res) => {
   try {
     const { id: userID } = req.params;
@@ -22,4 +22,5 @@ const getPatientAppointmentsByDoctor = async (req, res) => {
   const { id, doctorID } = req.params;
   const patientData = await patientBLL.getPatientAppointmentsByDoctor(doctorID);
 };
+
 module.exports = { getPatientByAccountID, getPatientAppointmentsByDoctor };

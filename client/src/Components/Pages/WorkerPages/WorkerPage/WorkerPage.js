@@ -8,7 +8,7 @@ import ShiftForm from "../../../Forms/ShiftForm";
 import { removeShift } from "../../../../Redux/Actions/doctorActions";
 import { getGreetingText } from "../../../../utils/utils";
 import useWindowSize from "../../../../hooks/useWindowSize";
-
+import VisitsChart from "../../../UI/Charts/VisitsChart";
 const WorkerPage = () => {
   const { user, isLoading } = useSelector((state) => state.user);
   const { auth } = useSelector((state) => state.auth);
@@ -23,10 +23,10 @@ const WorkerPage = () => {
     return <Loader />;
   }
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 h-screen">
       <h1
-        className={`text-white text-[24px] text-center bg-white bg-opacity-10 ${
-          isMobile ? "" : "backdrop-brightness-150"
+        className={`text-[#52514f] text-[24px] text-center bg-white bg-opacity-50 ${
+          isMobile ? "" : ""
         } w-fit mx-auto p-2 rounded-full`}
       >
         {greetingText + " Dr. " + user.firstName + " " + user.lastName}
@@ -38,7 +38,7 @@ const WorkerPage = () => {
           } border border-gray-200 border-double rounded-lg shadow`}
         >
           <div className="flex items-center justify-between ">
-            <h5 className="text-xl font-bold leading-none text-white underline underline-offset-2">
+            <h5 className="text-xl font-bold leading-none text-[#52514f] underline underline-offset-2">
               Closest Appointments
             </h5>
           </div>
@@ -55,7 +55,7 @@ const WorkerPage = () => {
             } border border-gray-200 border-double rounded-lg shadow`}
           >
             <div className="flex items-center justify-between ">
-              <h5 className="text-xl font-bold leading-none text-white p-2 whitespace-nowrap underline underline-offset-2">
+              <h5 className="text-xl font-bold leading-none text-[#52514f] p-2 whitespace-nowrap underline underline-offset-2">
                 Your Shifts
               </h5>
               <button
@@ -88,6 +88,9 @@ const WorkerPage = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="w-fit">
+        <VisitsChart chartTitle={"Shifts History"} />
       </div>
     </div>
   );

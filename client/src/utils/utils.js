@@ -127,7 +127,7 @@ export const UserMenus = (auth) => {
       ref: `/${auth.role}/${auth.id}`,
     },
     {
-      title: "My Analysis",
+      title: "My Diagnosis",
       icon: (
         <FontAwesomeIcon
           icon={faChartSimple}
@@ -135,7 +135,7 @@ export const UserMenus = (auth) => {
           style={{ color: "#33b9e6" }}
         />
       ),
-      ref: `/${auth.role}/${auth.id}/analysis`,
+      ref: `/${auth.role}/${auth.id}/diagnosis`,
     },
     {
       title: "Medical Records",

@@ -18,7 +18,7 @@ const DoctorSearch = ({ categories, searchHandler, userId }) => {
       <div className="dropdown dropdown-bottom w-fit join-item">
         <label
           tabIndex={0}
-          className="p-3 bg-blue-500 text-white rounded-t-xl rounded-b-xl rounded-r-xl rounded-l-none hover items-center hover:bg-blue-700 cursor-pointer"
+          className="p-3 bg-blue-500 text-white  hover items-center hover:bg-blue-700 cursor-pointer"
         >
           Choose Speciality
           <FontAwesomeIcon

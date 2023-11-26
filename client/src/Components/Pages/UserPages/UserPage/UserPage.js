@@ -5,6 +5,7 @@ import DashboardNavbar from "../../../UI/Navbar/DashboardNavbar";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import BottomNav from "../../../UI/Navbar/BottomNav";
 import Loader from "../../../UI/Loader";
+
 const UserPage = ({ children }) => {
   const { user, isLoading } = useSelector((state) => state.user);
   const { auth } = useSelector((state) => state.auth);
@@ -15,14 +16,12 @@ const UserPage = ({ children }) => {
     localStorage.setItem("currTab", view);
   };
 
-  if (isLoading) {
+  if (isLoading && auth.role !== "admin") {
     return <Loader />;
   } else {
     return (
-      <div className="lg:h-screen lg:overflow-y-hidden">
-        <DashboardNavbar currViewHandler={currentViewHandler} />
-
-        <div className="flex bg-white lg:h-screen bg-opacity-20">
+      <div className="bg-black bg-opacity-10">
+        <div className="flex">
           {!isMobile && auth.role !== "doctor" && auth.role !== "admin" ? (
             <SideMenu
               props={{
@@ -33,7 +32,10 @@ const UserPage = ({ children }) => {
           ) : isMobile && auth.role !== "doctor" && auth.role !== "admin" ? (
             <BottomNav currViewHandler={currentViewHandler} />
           ) : null}
-          {children}
+          <div className="flex flex-col w-full">
+            <DashboardNavbar currViewHandler={currentViewHandler} />
+            {children}
+          </div>
         </div>
       </div>
     );

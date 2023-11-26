@@ -26,6 +26,15 @@ const getPatientAppointmentsByDoctor = (doctorId) => {
   return patientDAL.getPatientAppointmentsByDoctor(doctorId);
 };
 
+const updatePatient = async (userID, updateField, updateData) => {
+  const updatedPatient = await patientDAL.updatePatient(
+    userID,
+    updateField,
+    updateData
+  );
+  return updatedPatient;
+};
+
 module.exports = {
   createNewPatient,
   updateApotroposOfPatient,
@@ -33,4 +42,5 @@ module.exports = {
   addNewAppointment,
   getPatientByAccountID,
   getPatientAppointmentsByDoctor,
+  updatePatient,
 };

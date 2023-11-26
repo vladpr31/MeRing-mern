@@ -11,15 +11,19 @@ const createNewDoctorWithCredential = (doctorDetails) => {
   newDoctor.save();
   return newDoctor;
 };
-const updateDoctor = (doctorID, updatedDetails) => {
-  return DoctorDB.findByIdAndUpdate(doctorID, updatedDetails, {
+const updateDoctor = (doctorID, updateField, updatedDetails) => {
+  // Construct the update object dynamically
+  const updateObject = { [updateField]: updatedDetails };
+
+  return DoctorDB.findByIdAndUpdate(doctorID, updateObject, {
     upsert: true,
+    new: true, // Return the modified document, not the original
   }).then((result) => {
     console.log(result);
     return result;
   });
 };
-const updateDoctorShifts = (doctorID, shift) => {
+const updateDoctorShifts = async (doctorID, shift) => {
   return DoctorDB.findByIdAndUpdate(doctorID, {
     $addToSet: { shifts: shift._id },
   })
@@ -34,6 +38,7 @@ const getDoctorsByCategory = (category) => {
   return DoctorDB.find({
     speciality: new RegExp(`^${category}$`, "i"),
   })
+    .select("-_id")
     .populate({
       path: "clinic",
       model: "Clinics",

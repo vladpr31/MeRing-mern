@@ -16,6 +16,7 @@ const PatientRegister = () => {
   const navigate = useNavigate();
   const [selectOptions, setSelectOptions] = useState([]);
   const [hasApotropos, setHasApotropos] = useState(false);
+  const [passwordValid, setPasswordValid] = useState();
   const [newPatient, setnewPatient] = useState({
     firstName: "",
     lastName: "",
@@ -38,7 +39,7 @@ const PatientRegister = () => {
     phoneNumber: "",
   });
   const [error, setError] = useState("");
-  const [passwordValid, setPasswordValid] = useState();
+  const [buttonLoading, setButtonLoading] = useState(false);
   const dispatch = useDispatch();
   const formHandler = (e) => {
     if (e?.target) {
@@ -112,6 +113,7 @@ const PatientRegister = () => {
 
   const registerHandler = async (e) => {
     e.preventDefault();
+    setButtonLoading(true);
     let err;
     const notEmpty = checkInputs(newUser, newPatient);
     if (typeof notEmpty !== "object") {
@@ -346,7 +348,11 @@ const PatientRegister = () => {
             type="submit"
             onClick={registerHandler}
           >
-            Sign Up
+            {buttonLoading ? (
+              <span className="loading loading-spinner text-info"></span>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </div>
       </form>

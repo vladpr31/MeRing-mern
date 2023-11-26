@@ -55,7 +55,7 @@ const NewAppointmentCreation = () => {
   };
   if (doctors?.length <= 0) {
     return (
-      <div className="items-center text-center py-3">
+      <div className="items-center text-center h-screen py-3">
         <select
           className="select select-bordered w-full max-w-xs"
           onChange={handleFilter}
@@ -83,7 +83,7 @@ const NewAppointmentCreation = () => {
     );
   } else {
     return (
-      <div className="w-full">
+      <div className="w-full h-screen">
         <div className="flex justify-center gap-x-4 py-4">
           <select
             className="select select-bordered w-full max-w-xs"

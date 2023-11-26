@@ -62,6 +62,9 @@ export const createAppointment = (appointmentId, userID, doctor) => {
     doctor,
   });
 };
+export const createReview = (review) => {
+  return API.post(`/review/newReview`, { review });
+};
 export const cancelAppointment = (appointmentId, userId) => {
   return API.delete(`/appointments/${userId}/${appointmentId}`);
 };

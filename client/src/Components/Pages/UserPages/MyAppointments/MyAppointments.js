@@ -36,7 +36,7 @@ const MyAppointments = () => {
     <div className="flex w-full py-12 lg:w-[80%] mx-auto lg:h-fit ">
       <table className="table table-xs lg:table-md bg-white bg-opacity-30 border-seperate ">
         <thead>
-          <tr className="text-white">
+          <tr className="text-[#52514f]">
             <th>Doctor</th>
             <th>Clinic</th>
             <th>Date</th>
@@ -59,7 +59,7 @@ const MyAppointments = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold text-white">
+                        <div className="font-bold text-[#52514f]">
                           {appointment.doctor.firstName +
                             " " +
                             appointment.doctor.lastName}
@@ -70,14 +70,14 @@ const MyAppointments = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="text-left text-white">
+                  <td className="text-left text-[#52514f]">
                     {appointment.clinic.clinicName}
                     <br />
                     <span className="badge badge-ghost text-[12px] whitespace-nowrap badge-sm lg:badge-md">
                       {appointment.clinic.location}
                     </span>
                   </td>
-                  <td className="text-center text-white">
+                  <td className="text-center text-[#52514f]">
                     {new Date(
                       appointment.appointmentDateTime
                     ).toLocaleDateString("en-GB")}
@@ -105,7 +105,7 @@ const MyAppointments = () => {
         ) : (
           <tbody>
             <tr className="p-4">
-              <td className="text-white ">No Appointments Yet.</td>
+              <td className="text-[#52514f] ">No Appointments Yet.</td>
             </tr>
           </tbody>
         )}

@@ -21,7 +21,7 @@ const ProtectedRoutes = ({ children }) => {
       const fetchUserAndConnectSocket = async () => {
         // Fetch user data
         const currentUser = JSON.parse(localStorage.getItem("user:persist"));
-        if (!currentUser) {
+        if (!currentUser || auth.role === "admin") {
           await dispatch(await getUserData(auth.id, auth.role));
         }
         // Establish socket connection
@@ -48,7 +48,7 @@ const ProtectedRoutes = ({ children }) => {
   if (socket) {
     return (
       <CookiesProvider>
-        <div className="bg-[url('./Assets/bg4.jpg')]">
+        <div className="bg-[url('./Assets/svgs/wave1.svg')] bg-no-repeat bg-cover ">
           <UserPage>{children}</UserPage>
         </div>
       </CookiesProvider>

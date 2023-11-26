@@ -12,6 +12,8 @@ const patientModel = new mongoose.Schema({
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointments" }],
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
   messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Messages" }],
+  profileImage: Object,
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
 });
 
 const Patient = mongoose.model("Patients", patientModel);

@@ -20,7 +20,7 @@ const getUserByID = (userID) => {
 const validateUser = async (patientInfo) => {
   try {
     const user = await UserDB.findOne({
-      email: patientInfo.email,
+      email: { $regex: patientInfo.email, $options: "i" },
     });
 
     if (user.role !== "admin") {
