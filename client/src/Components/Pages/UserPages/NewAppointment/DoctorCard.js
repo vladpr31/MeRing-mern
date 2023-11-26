@@ -98,7 +98,7 @@ const DoctorCard = ({ props }) => {
           id={`review_modal_${props.index}`}
           className="modal sm:modal-middle"
         >
-          <ReviewModal doctor={{ doctor: props.doctor }} />
+          <ReviewModal doctor={props.doctor} />
         </dialog>
       </>
     );

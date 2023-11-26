@@ -4,6 +4,7 @@ import { createNewReview } from "../../../../Redux/Actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const ReviewModal = ({ doctor }) => {
+  console.log(doctor);
   const { auth } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [reviewFormInputs, setReviewFormInputs] = useState({
