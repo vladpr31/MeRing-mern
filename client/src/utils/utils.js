@@ -13,6 +13,8 @@ import {
   faCalendarPlus,
   faUserPen,
   faUserDoctor,
+  faStar,
+  faStarHalfStroke,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const checkInputs = (newUser, newPatient) => {
@@ -193,4 +195,28 @@ export const UserMenus = (auth) => {
       ref: `/${auth.role}/${auth.id}/requests`,
     },
   ];
+};
+
+export const StarRating = (rating) => {
+  const starIcons = [];
+
+  // Add full stars
+  for (let i = 0; i < Math.floor(rating); i++) {
+    starIcons.push(
+      <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500" />
+    );
+  }
+
+  // Add half star if applicable
+  if (rating % 1 !== 0) {
+    starIcons.push(
+      <FontAwesomeIcon
+        key="half"
+        icon={faStarHalfStroke}
+        className="text-yellow-500"
+      />
+    );
+  }
+
+  return <div>{starIcons}</div>;
 };

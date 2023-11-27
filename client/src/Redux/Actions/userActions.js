@@ -69,6 +69,3 @@ export const getDoctorAppointments = (doctorID) => async (dispatch) => {
     console.log("error:", response);
   }
 };
-
-export const createNewReview =
-  (patientID, doctorID, review) => async (dispatch) => {};

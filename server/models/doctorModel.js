@@ -6,7 +6,7 @@ const doctorModel = new mongoose.Schema({
   speciality: String,
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Users" } || null,
   clinic: { type: mongoose.Schema.Types.ObjectId, ref: "Clinics" },
-  rating: [
+  reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Review",

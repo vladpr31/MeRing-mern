@@ -13,15 +13,26 @@ const createNewDoctorWithCredential = (doctorDetails) => {
 };
 const updateDoctor = (doctorID, updateField, updatedDetails) => {
   // Construct the update object dynamically
-  const updateObject = { [updateField]: updatedDetails };
+  if (updateField !== "reviews") {
+    const updateObject = { [updateField]: updatedDetails };
+    return DoctorDB.findByIdAndUpdate(doctorID, updateObject, {
+      upsert: true,
+      new: true, // Return the modified document, not the original
+    }).then((result) => {
+      console.log(result);
+      return result;
+    });
+  } else {
+    const updateObject = { $addToSet: { [updateField]: updatedDetails } };
 
-  return DoctorDB.findByIdAndUpdate(doctorID, updateObject, {
-    upsert: true,
-    new: true, // Return the modified document, not the original
-  }).then((result) => {
-    console.log(result);
-    return result;
-  });
+    return DoctorDB.findByIdAndUpdate(doctorID, updateObject, {
+      upsert: true,
+      new: true, // Return the modified document, not the original
+    }).then((result) => {
+      console.log(result);
+      return result;
+    });
+  }
 };
 const updateDoctorShifts = async (doctorID, shift) => {
   return DoctorDB.findByIdAndUpdate(doctorID, {
@@ -43,7 +54,18 @@ const getDoctorsByCategory = (category) => {
       path: "clinic",
       model: "Clinics",
     })
-    .populate({ path: "shifts", model: "Shifts" });
+    .populate({ path: "shifts", model: "Shifts" })
+    .populate({
+      path: "reviews",
+      model: "Review",
+      populate: [
+        {
+          path: "reviewerName",
+          model: "Patients",
+          select: { firstName: 1, lastName: 1, profileImage: 1, _id: 0 },
+        },
+      ],
+    });
 };
 
 const addNewAppointment = (doctorID, appointment) => {
@@ -85,7 +107,8 @@ const getDoctorByID = (doctorID) => {
         },
       ],
       select: { _id: 0, doctor: 0, clinic: 0 },
-    });
+    })
+    .populate({ path: "reviews", model: "Review" });
 };
 
 const removeDoctor = (doctorID) => {

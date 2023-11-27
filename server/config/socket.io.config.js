@@ -4,7 +4,7 @@ const chatBLL = require("../BLLs/chatBLL/chatBLL");
 const messageBLL = require("../BLLs/messageBLL/messagesBLL");
 const patientBLL = require("../BLLs/patientBLL/patientBLL");
 const doctorBLL = require("../BLLs/doctorBLL/doctorBLL");
-
+const reviewBLL = require("../BLLs/reviewBLL/reviewBLL");
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
@@ -118,6 +118,19 @@ io.on("connection", async (socket) => {
         io.to(receiver).emit("notifications", notifications);
       }
     }
+  });
+
+  socket.on("send_review", async (data) => {
+    data.review.timestamp = new Date();
+    const patient = await patientBLL.getPatientByAccountID(data.userId);
+    data.review.reviewer = data.userId;
+    const patientData = await patientBLL.getPatientByID(patient._id);
+    data.review.reviewerProfileImage = patientData.profileImage;
+    const review = await reviewBLL.createNewReview(data.review);
+    const doctor = await doctorBLL.getDoctorByAccountID(data.doctorId);
+    await patientBLL.updatePatient(patient._id, "reviews", review);
+    await doctorBLL.updateDoctor(doctor._id, "reviews", review);
+    io.emit("received_review", review);
   });
 });
 

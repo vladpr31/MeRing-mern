@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import AppointmentBlack from "../../../../Assets/doctor-black.png";
-import AppointmentWhite from "../../../../Assets/doctor-white.png";
 import AppointmentModal from "./AppointmentModal";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import ReviewModal from "../Reviews/ReviewModal";
+import { StarRating } from "../../../../utils/utils";
 const DoctorCard = ({ props }) => {
-  //Didn't have an appropriate Icon so made 1 black and 1 white and change between them with mouseover event.
-  const [mouseHover, setMouseHover] = useState(false);
-  const mouseHoverHandler = () => {
-    setMouseHover(!mouseHover);
+  const doctorRating = () => {
+    let rating = 0;
+    props.doctor.reviews.map((review) => {
+      rating += review.rating;
+    });
+    rating = rating / props.doctor.reviews.length;
+    return Number(rating.toFixed(1)) || 0;
   };
-
   const handleAppointmentModal = () => {
     document.getElementById(`appointment_modal_${props.index}`).showModal();
   };
-  const handleReviewModal = () => {
-    document.getElementById(`review_modal_${props.index}`).showModal();
+  const handleReviewModal = (modalState) => {
+    modalState
+      ? document.getElementById(`review_modal_${props.index}`).showModal()
+      : document.getElementById(`review_modal_${props.index}`).close();
   };
   const { width } = useWindowSize();
   //in case doctor doesnt have a clinic, dont show his card.
@@ -38,24 +42,18 @@ const DoctorCard = ({ props }) => {
           </div>
           <div className="w-full items-center lg:items-start bg-white flex flex-col space-y-2 ">
             <div className="flex justify-between flex-col items-center">
-              <p className="text-gray-500 font-medium  md:block">
+              <h1 className="text-gray-500 font-medium md:block">
                 {props.doctor.speciality}
-              </p>
-              <div className="flex">
-                <p className="text-gray-600 font-bold text-sm">
-                  <FontAwesomeIcon
-                    icon={faStar}
-                    style={{ color: "#dfc258" }}
-                    className="ml-1"
-                  />
-                  {props.doctor.rating.rating}
-                  <button
-                    className="text-gray-500 ml-2 font-normal hover:underline"
-                    onClick={handleReviewModal}
-                  >
-                    ({props.doctor.rating.length} Reviews)
-                  </button>
-                </p>
+              </h1>
+              <div className="flex text-sm">
+                <span className="">{doctorRating()}</span>
+                <span className="ml-2">{StarRating(doctorRating())}</span>
+                <button
+                  className="text-gray-500 ml-2 font-normal hover:underline"
+                  onClick={() => handleReviewModal(true)}
+                >
+                  ({props.doctor.reviews.length} Reviews)
+                </button>
               </div>
             </div>
             <h3 className="font-black text-gray-800 md:text-3xl text-xl">
@@ -70,15 +68,11 @@ const DoctorCard = ({ props }) => {
           </div>
           <div>
             <button
-              className="text-left w-full lg:h-fit mg:h-fit lg:w-fit md:w-fit  outline-none text-center mx-auto rounded-xl justify-end h-[35px] w-[35px] hover:bg-green-600"
+              className="text-left w-full bg-blue-200 outline-none text-center mx-auto rounded-xl justify-end hover:bg-blue-300"
               onClick={handleAppointmentModal}
             >
               {width > 768 ? (
-                <img
-                  src={mouseHover ? AppointmentWhite : AppointmentBlack}
-                  onMouseOver={mouseHoverHandler}
-                  onMouseOut={mouseHoverHandler}
-                />
+                <img src={AppointmentBlack} className="w-16" />
               ) : (
                 "Schedule Now"
               )}
@@ -98,7 +92,10 @@ const DoctorCard = ({ props }) => {
           id={`review_modal_${props.index}`}
           className="modal sm:modal-middle"
         >
-          <ReviewModal doctor={props.doctor} />
+          <ReviewModal
+            doctor={props.doctor}
+            handleReviewModal={handleReviewModal}
+          />
         </dialog>
       </>
     );

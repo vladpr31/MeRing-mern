@@ -1,4 +1,4 @@
-const reviewDAL = require("../../DALs/");
+const reviewDAL = require("../../DALs/reviewDAL");
 
 const createNewReview = (review) => {
   return reviewDAL.createNewReview(review);

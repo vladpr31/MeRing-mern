@@ -80,16 +80,23 @@ const getPatientAppointmentsByDoctor = (doctorId) => {
   ]);
 };
 
-const updatePatient = async (userID, updateField, updateData) => {
-  const updateObject = { [updateField]: updateData };
+const updatePatient = async (userID, updateField, updatedData) => {
+  if (updateField !== "reviews") {
+    const updateObject = { [updateField]: updatedData };
 
-  const patient = await PatientDB.findOneAndUpdate(
-    { account: userID },
-    updateObject,
-    { new: true }
-  );
+    const patient = await PatientDB.findOneAndUpdate(userID, updateObject, {
+      new: true,
+    });
 
-  return patient;
+    return patient;
+  } else {
+    const updateObject = { $addToSet: { [updateField]: updatedData } };
+    const patient = await PatientDB.findOneAndUpdate(userID, updateObject, {
+      new: true,
+    });
+
+    return patient;
+  }
 };
 module.exports = {
   createNewPatient,
