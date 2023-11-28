@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import AppointmentBlack from "../../../../Assets/doctor-black.png";
@@ -15,14 +15,25 @@ const DoctorCard = ({ props }) => {
     rating = rating / props.doctor.reviews.length;
     return Number(rating.toFixed(1)) || 0;
   };
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+
   const handleAppointmentModal = () => {
-    document.getElementById(`appointment_modal_${props.index}`).showModal();
+    setShowAppointmentModal(!showAppointmentModal);
   };
-  const handleReviewModal = (modalState) => {
-    modalState
-      ? document.getElementById(`review_modal_${props.index}`).showModal()
-      : document.getElementById(`review_modal_${props.index}`).close();
+  const handleReviewModal = () => {
+    setShowReviewModal(!showReviewModal);
   };
+  useEffect(() => {
+    if (showReviewModal) {
+      document.getElementById(`review_modal_${props.index}`).showModal();
+    }
+
+    if (showAppointmentModal) {
+      document.getElementById(`appointment_modal_${props.index}`).showModal();
+    }
+  }, [showAppointmentModal, showReviewModal]);
+
   const { width } = useWindowSize();
   //in case doctor doesnt have a clinic, dont show his card.
   //(Happens if clinic is deleted from the "Admin Panel").
@@ -50,7 +61,7 @@ const DoctorCard = ({ props }) => {
                 <span className="ml-2">{StarRating(doctorRating())}</span>
                 <button
                   className="text-gray-500 ml-2 font-normal hover:underline"
-                  onClick={() => handleReviewModal(true)}
+                  onClick={handleReviewModal}
                 >
                   ({props.doctor.reviews.length} Reviews)
                 </button>
@@ -82,21 +93,25 @@ const DoctorCard = ({ props }) => {
             </button>
           </div>
         </div>
-        <dialog
-          id={`appointment_modal_${props.index}`}
-          className="modal sm:modal-middle "
-        >
-          <AppointmentModal props={{ doctor: props.doctor }} />
-        </dialog>
-        <dialog
-          id={`review_modal_${props.index}`}
-          className="modal sm:modal-middle"
-        >
-          <ReviewModal
-            doctor={props.doctor}
-            handleReviewModal={handleReviewModal}
-          />
-        </dialog>
+        {showAppointmentModal ? (
+          <dialog
+            id={`appointment_modal_${props.index}`}
+            className="modal sm:modal-middle "
+          >
+            <AppointmentModal props={{ doctor: props.doctor }} />
+          </dialog>
+        ) : null}
+        {showReviewModal ? (
+          <dialog
+            id={`review_modal_${props.index}`}
+            className="modal sm:modal-middle"
+          >
+            <ReviewModal
+              doctor={props.doctor}
+              handleReviewModal={handleReviewModal}
+            />
+          </dialog>
+        ) : null}
       </>
     );
   }

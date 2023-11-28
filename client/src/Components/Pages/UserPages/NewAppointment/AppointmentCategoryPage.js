@@ -11,6 +11,7 @@ import {
 import BottomNav from "../../../UI/Navbar/BottomNav";
 import useWindowSize from "../../../../hooks/useWindowSize";
 
+//this array can be changed to fetch all the clinic names from the api.
 const clinicLocations = [
   "Ashdod M.R Center",
   "Tel Aviv M.R Center",
@@ -55,7 +56,7 @@ const NewAppointmentCreation = () => {
   );
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full md:h-screen">
       <div className="flex justify-center gap-x-4 py-4">
         <select
           className="select select-bordered w-full max-w-xs"
@@ -75,10 +76,10 @@ const NewAppointmentCreation = () => {
           onClick={() => setRatingSort(!ratingSort)}
         >
           Sort By Rating
-          {!ratingSort ? (
-            <FontAwesomeIcon icon={faArrowUpShortWide} className="ml-2" />
-          ) : (
+          {ratingSort ? (
             <FontAwesomeIcon icon={faArrowDownShortWide} className="ml-2" />
+          ) : (
+            <FontAwesomeIcon icon={faArrowUpShortWide} className="ml-2" />
           )}
         </button>
       </div>

@@ -7,20 +7,28 @@ const ReviewModal = ({ doctor, handleReviewModal }) => {
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(dispatch(getSocket()));
   const [reviews, setReviews] = useState(doctor.reviews);
-  const closeReviewModal = () => {};
   useEffect(() => {
     socket.on("received_review", (data) => {
       setReviews((prevState) => [...prevState, data]);
     });
-
+    socket.on("review_updated", (data) => {
+      const updatedReview = reviews.map((review) => {
+        if (review._id === data._id) {
+          return data;
+        }
+        return review;
+      });
+      setReviews(updatedReview);
+    });
     return () => {
       socket.off("received_review");
+      socket.off("review_updated");
     };
   }, [doctor, socket, reviews]);
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between bg-base-300 lg:w-[1250px] w-screen items-center lg:items-start h-[600px] rounded-2xl overflow-y-auto ">
-      <div className="grid w-[400px] lg:h-[600px] justify-center flex-grow bg-base-300 lg:overflow-y-auto">
+    <div className="flex flex-col-reverse xl:flex-row justify-between bg-base-300 xl:w-[1250px] w-fit items-center xl:items-start h-[600px] rounded-2xl overflow-y-auto ">
+      <div className="grid w-[400px] xl:h-[600px] justify-center flex-grow bg-base-300 xl:overflow-y-auto">
         <div className="p-4 w-full h-full ">
           <h2 className="text-center">
             <span className="text-blue-600">
@@ -33,9 +41,7 @@ const ReviewModal = ({ doctor, handleReviewModal }) => {
           </div>
         </div>
       </div>
-      <div className="divider items-center text-center divider-horizontal">
-        OR
-      </div>
+      <div className="divider items-center text-center divider-horizontal"></div>
       <div className="p-4 text-center grid w-[400px] flex-grow card bg-base-300 place-items-center">
         <h1>
           Write Review About{" "}
@@ -46,6 +52,12 @@ const ReviewModal = ({ doctor, handleReviewModal }) => {
 
         <ReviewForm socket={socket} doctor={doctor} />
       </div>
+      <button
+        className="px-2 py-1 rounded-full bg-white mr-2 mt-2"
+        onClick={handleReviewModal}
+      >
+        X
+      </button>
     </div>
   );
 };

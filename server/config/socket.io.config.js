@@ -132,6 +132,14 @@ io.on("connection", async (socket) => {
     await doctorBLL.updateDoctor(doctor._id, "reviews", review);
     io.emit("received_review", review);
   });
+
+  socket.on("review_update", async (data) => {
+    const editedReview = await reviewBLL.updateReview(
+      data.reviewId,
+      data.reviewEdit
+    );
+    io.emit("review_updated", editedReview);
+  });
 });
 
 module.exports = server;

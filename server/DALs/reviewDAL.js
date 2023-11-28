@@ -5,5 +5,7 @@ const createNewReview = (review) => {
   newReview.save();
   return newReview;
 };
-
-module.exports = { createNewReview };
+const updateReview = (reviewId, updatedReview) => {
+  return Review.findByIdAndUpdate(reviewId, updatedReview, { new: true });
+};
+module.exports = { createNewReview, updateReview };

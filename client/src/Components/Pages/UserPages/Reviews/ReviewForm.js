@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { StarRating } from "../../../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,9 @@ const ReviewForm = ({ doctor, socket }) => {
   const { auth } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
   const [allowEditMode, setAllowEditMode] = useState(false);
+  const [userReview, setUserReview] = useState(() =>
+    doctor.reviews.find((review) => review.reviewer === auth.id)
+  );
   const [reviewFormInputs, setReviewFormInputs] = useState({
     reviewerName: user.firstName + " " + user.lastName,
     title: "",
@@ -50,9 +53,20 @@ const ReviewForm = ({ doctor, socket }) => {
       userId: auth.id,
     });
   };
-  const userReview = doctor.reviews.find(
-    (review) => review.reviewer === auth.id
-  );
+  const handleReviewEdit = () => {
+    socket.emit("review_update", {
+      reviewEdit: reviewFormInputs,
+      reviewId: userReview._id,
+    });
+    setAllowEditMode(false);
+  };
+
+  useEffect(() => {
+    socket.on("review_updated", (data) => {
+      setUserReview(data);
+    });
+  }, [socket, userReview]);
+
   if (userReview) {
     return (
       <div>
@@ -75,7 +89,10 @@ const ReviewForm = ({ doctor, socket }) => {
             </div>
           ) : (
             <div className="flex justify-end">
-              <button className="bg-blue-500 text-white rounded-2xl p-1 px-2">
+              <button
+                className="bg-blue-500 text-white rounded-2xl p-1 px-2"
+                onClick={handleReviewEdit}
+              >
                 Save
               </button>
               <button
@@ -110,11 +127,17 @@ const ReviewForm = ({ doctor, socket }) => {
               <>
                 <input
                   placeholder={userReview.title}
-                  value={userReview.title}
+                  defaultValue={userReview.title}
+                  id="review-title"
+                  onChange={reviewFormInputHandler}
+                  className="mb-2 bg-gray-300 p-2 rounded-2xl"
                 />
-                <textarea className="w-full h-[200px] resize-none">
-                  {userReview.reviewBody}
-                </textarea>
+                <textarea
+                  className="w-full h-[200px] resize-none bg-gray-300 rounded-2xl p-2"
+                  onChange={reviewFormInputHandler}
+                  id="review-body"
+                  defaultValue={userReview.reviewBody}
+                ></textarea>
               </>
             )}
           </div>

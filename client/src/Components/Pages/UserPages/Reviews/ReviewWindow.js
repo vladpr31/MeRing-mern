@@ -1,8 +1,8 @@
 import React from "react";
 
 import { StarRating } from "../../../../utils/utils";
-const ReviewWindow = ({ doctor }) => {
-  if (doctor.reviews.length === 0) {
+const ReviewWindow = ({ doctor, reviews }) => {
+  if (reviews.length === 0) {
     return (
       <div className="text-center py-16 bg-white rounded-2xl">
         <h1>This Doctor Does Not Have Any Reviews Yet.</h1>
@@ -10,7 +10,7 @@ const ReviewWindow = ({ doctor }) => {
       </div>
     );
   }
-  return doctor.reviews.map((review, index) => {
+  return reviews.map((review, index) => {
     return (
       <div key={index} className="p-2 rounded-2xl bg-white">
         <div className="flex justify-center">
@@ -29,13 +29,28 @@ const ReviewWindow = ({ doctor }) => {
             {review.reviewBody}
           </p>
         </div>
-        <time className="text-xs opacity-50">
-          <span>Posted: </span>
-          {new Date(review.timestamp).toLocaleTimeString("en-GB", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-          {" " + new Date(review.timestamp).toLocaleDateString("en-GB")}
+        <time className="text-xs opacity-50 flex flex-col">
+          <span>
+            Posted On:
+            {" " + new Date(review.timestamp).toLocaleDateString("en-GB") + " "}
+            At:
+            {" " +
+              new Date(review.timestamp).toLocaleTimeString("en-GB", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+          </span>
+          <span>
+            {new Date(review.timestamp).getTime() <
+            new Date(review.edited).getTime()
+              ? `Edited: ${new Date(review.edited).toLocaleDateString(
+                  "en-GB"
+                )} At:${new Date(review.edited).toLocaleTimeString("en-GB", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}`
+              : null}
+          </span>
         </time>
       </div>
     );

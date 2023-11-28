@@ -62,6 +62,7 @@ const NewAppointment = () => {
                 to={`/user/${id}/new-appointment/${category
                   .toLowerCase()
                   .replaceAll(" ", "-")}`}
+                className="w-full"
               >
                 {category}
               </Link>

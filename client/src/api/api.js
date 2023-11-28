@@ -29,113 +29,112 @@ API.interceptors.response.use(
 //user actions login\register
 
 export const registerWorker = (info) => {
-  return API.post("/auth/register-worker", info);
+  return API.post("api/auth/register-worker", info);
 };
 
 export const register = (info) => {
-  return API.post("/auth/register", { info });
+  return API.post("api/auth/register", { info });
 };
 export const login = (userCredentials) => {
-  console.log("in login api call");
-  return API.post("/auth/login", userCredentials);
+  return API.post("api/auth/login", userCredentials);
 };
 
 //data fetching
 export const getDiseasesData = () => {
-  return API.get("/scrap/getAllDiseases");
+  return API.get("api/scrap/getAllDiseases");
 };
 export const getSpecialtiesData = () => {
-  return API.get("/scrap//getAllSpecialties");
+  return API.get("api/scrap//getAllSpecialties");
 };
 
 //user data fetching & actions
 export const getUserData = (userID) => {
-  return API.get(`/users/${userID}`);
+  return API.get(`api/users/${userID}`);
 };
 export const getPatientAppointments = (patientID) => {
-  return API.get(`/appointments/${patientID}`);
+  return API.get(`api/appointments/${patientID}`);
 };
 export const createAppointment = (appointmentId, userID, doctor) => {
-  return API.post(`/appointments/new-appointment`, {
+  return API.post(`api/appointments/new-appointment`, {
     appointmentId,
     userID,
     doctor,
   });
 };
 export const createReview = (review) => {
-  return API.post(`/review/newReview`, { review });
+  return API.post(`api/review/newReview`, { review });
 };
 export const cancelAppointment = (appointmentId, userId) => {
-  return API.delete(`/appointments/${userId}/${appointmentId}`);
+  return API.delete(`api/appointments/${userId}/${appointmentId}`);
 };
 
 //doctors api calls.
 export const getDoctorsByCategory = (category) => {
-  return API.get(`/doctors/getByCategory/${category}`);
+  return API.get(`api/doctors/getByCategory/${category}`);
 };
 
 export const getAllDoctors = () => {
-  return API.get("/doctors/getAll");
+  return API.get("api/doctors/getAll");
 };
 
 export const createNewDoctor = (doctorDetails) => {
-  return API.post("/doctors/newDoctor", doctorDetails);
+  return API.post("api/doctors/newDoctor", doctorDetails);
 };
 export const updateDoctor = (doctorID, doctorDetails) => {
-  return API.patch(`/doctors/${doctorID}/update`, doctorDetails);
+  return API.patch(`api/doctors/${doctorID}/update`, doctorDetails);
 };
 export const removeDoctor = (doctorID) => {
-  return API.delete(`/doctors/${doctorID}/remove`);
+  return API.delete(`api/doctors/${doctorID}/remove`);
 };
 export const getDoctorById = (doctorID) => {
-  return API.get(`/doctors/authorized/${doctorID}`);
+  return API.get(`api/doctors/authorized/${doctorID}`);
 };
 export const getDoctorAppointments = (doctorID) => {
-  return API.get(`/appointments/authorized/${doctorID}`);
+  return API.get(`api/appointments/authorized/${doctorID}`);
 };
 
 //clinic api calls
 export const getAllClinics = () => {
-  return API.get("/clinics/getAll");
+  return API.get("api/clinics/getAll");
 };
 export const createNewClinic = (clinic) => {
-  return API.post("/clinics/new", clinic);
+  return API.post("api/clinics/new", clinic);
 };
 
 export const updateClinic = (clinicID, updatedClinic) => {
-  return API.patch(`/clinics/${clinicID}/update`, updatedClinic);
+  return API.patch(`api/clinics/${clinicID}/update`, updatedClinic);
 };
 
 export const removeClinic = (clinicID) => {
-  return API.delete(`/clinics/${clinicID}/remove`);
+  return API.delete(`api/clinics/${clinicID}/remove`);
 };
 
 //chat api calls
 
 export const createNewChat = (patientID, doctorID) => {
-  return API.post("/chat/newChat", { patientID, doctorID });
+  return API.post("api/chat/newChat", { patientID, doctorID });
 };
 
 export const getExistingChat = (chatID, role) => {
-  return API.get(`/chat/${chatID}/${role}`);
+  return API.get(`api/chat/${chatID}/${role}`);
 };
 
 export const getAllUserChats = (userID, userRole) => {
-  return API.get(`/chat/${userRole}/${userID}/getChats`);
+  return API.get(`api/chat/${userRole}/${userID}/getChats`);
 };
 
 //shifts api
 
 export const createNewShift = (doctorID, role, shift) => {
-  return API.post("/shift/new-shift", { doctorID, role, shift });
+  return API.post("api/shift/new-shift", { doctorID, role, shift });
 };
 
 export const removeShift = (doctorID, shiftID) => {
-  return API.delete(`/shift/${doctorID}/${shiftID}`);
+  return API.delete(`api/shift/${doctorID}/${shiftID}`);
 };
 
 // for development
 
 export const createAdmin = () => {
-  return API.get("/admin/new-admin");
+  return API.get("api/admin/new-admin");
 };

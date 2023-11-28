@@ -58,13 +58,6 @@ const getDoctorsByCategory = (category) => {
     .populate({
       path: "reviews",
       model: "Review",
-      populate: [
-        {
-          path: "reviewerName",
-          model: "Patients",
-          select: { firstName: 1, lastName: 1, profileImage: 1, _id: 0 },
-        },
-      ],
     });
 };
 

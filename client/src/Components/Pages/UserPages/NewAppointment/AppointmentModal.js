@@ -13,6 +13,7 @@ const AppointmentModal = ({ props }) => {
   const [showModal, setShowModal] = useState(false);
   const [appointment, setAppointment] = useState();
   const [activeButton, setActiveButton] = useState();
+  console.log("test");
   const dateHandler = (selectedDate) => {
     setDate(selectedDate);
   };
