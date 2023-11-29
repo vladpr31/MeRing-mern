@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { StarRating } from "../../../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import ConfirmationModal from "../../../UI/ConfirmationModal";
 const ReviewForm = ({ doctor, socket }) => {
   const { auth } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
   const [allowEditMode, setAllowEditMode] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
   const [userReview, setUserReview] = useState(() =>
     doctor.reviews.find((review) => review.reviewer === auth.id)
   );
@@ -86,17 +88,21 @@ const ReviewForm = ({ doctor, socket }) => {
           {!allowEditMode ? (
             <div className="flex justify-end">
               <button
-                className="bg-blue-500 text-white rounded-2xl p-1 px-2 "
+                className="btn bg-blue-500 text-white hover:bg-blue-700"
                 onClick={() => setAllowEditMode(!allowEditMode)}
               >
                 <FontAwesomeIcon icon={faPen} />
               </button>
-              <button
-                className="bg-red-600 text-white rounded-2xl p-1 px-2 ml-2"
-                onClick={handleReviewDelete}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+              <ConfirmationModal
+                confirmText="You can always write a new one, or edit at anytime."
+                confirmIcon={
+                  <FontAwesomeIcon icon={faTrash} style={{ color: "white" }} />
+                }
+                confirmQuestion="Are you sure you want to delete this review?"
+                confirmIconBGColor="bg-red-500"
+                confirmationAction={handleReviewDelete}
+                confirmationId={userReview._id}
+              />
             </div>
           ) : (
             <div className="flex justify-end">

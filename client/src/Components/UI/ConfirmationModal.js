@@ -11,7 +11,7 @@ const ConfirmationModal = ({
   return (
     <>
       <button
-        className={`btn ${confirmIconBGColor}`}
+        className={`btn ${confirmIconBGColor} hover:bg-red-800`}
         onClick={() =>
           document.getElementById("confirmation_modal").showModal()
         }

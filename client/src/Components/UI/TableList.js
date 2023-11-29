@@ -71,7 +71,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                     </div>
                   ) : (
                     <ConfirmationModal
-                      confirmText={"Appointment Will be cancled."}
+                      confirmText={"Appointment will be canceled."}
                       confirmQuestion={
                         "Are You Sure You Want To Cancel This Appointment?"
                       }
