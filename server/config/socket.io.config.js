@@ -140,6 +140,12 @@ io.on("connection", async (socket) => {
     );
     io.emit("review_updated", editedReview);
   });
+
+  socket.on("delete_review", async (data) => {
+    const reviewID = data.reviewId;
+    await reviewBLL.deleteReview(reviewID);
+    io.emit("review_deleted", reviewID);
+  });
 });
 
 module.exports = server;

@@ -81,16 +81,30 @@ const getPatientAppointmentsByDoctor = (doctorId) => {
 };
 
 const updatePatient = async (userID, updateField, updatedData) => {
-  if (updateField !== "reviews") {
-    const updateObject = { [updateField]: updatedData };
-
+  if (updateField === "reviews") {
+    const updateObject = { $addToSet: { [updateField]: updatedData } };
     const patient = await PatientDB.findOneAndUpdate(userID, updateObject, {
       new: true,
     });
 
     return patient;
+  } else if (updateField === "deleteReview") {
+    const updateObject = {
+      $pull: { reviews: { _id: updatedData } },
+    };
+
+    const patient = await PatientDB.findOneAndUpdate(
+      { _id: userID },
+      updateObject,
+      {
+        new: true,
+      }
+    );
+
+    return patient;
   } else {
-    const updateObject = { $addToSet: { [updateField]: updatedData } };
+    const updateObject = { [updateField]: updatedData };
+
     const patient = await PatientDB.findOneAndUpdate(userID, updateObject, {
       new: true,
     });

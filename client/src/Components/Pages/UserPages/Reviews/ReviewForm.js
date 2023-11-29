@@ -16,6 +16,7 @@ const ReviewForm = ({ doctor, socket }) => {
     reviewBody: "",
     rating: 0,
   });
+  console.log(doctor);
   const reviewFormInputHandler = (e) => {
     const { id, value } = e.target;
     switch (id) {
@@ -60,7 +61,14 @@ const ReviewForm = ({ doctor, socket }) => {
     });
     setAllowEditMode(false);
   };
-
+  const handleReviewDelete = () => {
+    socket.emit("delete_review", {
+      reviewId: userReview._id,
+      doctorId: doctor.account,
+      userId: auth.id,
+    });
+    setUserReview(null);
+  };
   useEffect(() => {
     socket.on("review_updated", (data) => {
       setUserReview(data);
@@ -83,7 +91,10 @@ const ReviewForm = ({ doctor, socket }) => {
               >
                 <FontAwesomeIcon icon={faPen} />
               </button>
-              <button className="bg-red-600 text-white rounded-2xl p-1 px-2 ml-2">
+              <button
+                className="bg-red-600 text-white rounded-2xl p-1 px-2 ml-2"
+                onClick={handleReviewDelete}
+              >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
             </div>

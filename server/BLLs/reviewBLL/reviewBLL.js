@@ -13,4 +13,7 @@ const updateReview = (reviewId, updatedReview) => {
   };
   return reviewDAL.updateReview(reviewId, editedReview);
 };
-module.exports = { createNewReview, updateReview };
+const deleteReview = (reviewId) => {
+  return reviewDAL.deleteReview(reviewId);
+};
+module.exports = { createNewReview, updateReview, deleteReview };

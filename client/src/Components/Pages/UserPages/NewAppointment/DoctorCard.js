@@ -77,9 +77,9 @@ const DoctorCard = ({ props }) => {
               {props.doctor.clinic.location}
             </p>
           </div>
-          <div>
+          <div className="grid gap-y-5 mt-2">
             <button
-              className="text-left w-full bg-blue-200 outline-none text-center mx-auto rounded-xl justify-end hover:bg-blue-300"
+              className="text-left w-full p-2 bg-blue-200 outline-none text-center mx-auto rounded-xl justify-end hover:bg-blue-300"
               onClick={handleAppointmentModal}
             >
               {width > 768 ? (
@@ -88,8 +88,12 @@ const DoctorCard = ({ props }) => {
                 "Schedule Now"
               )}
             </button>
-            <button className="text-left w-full outline-none hover:text-white text-center mx-auto rounded-xl justify-end h-[50px] w-[50px] hover:bg-green-600">
-              <FontAwesomeIcon icon={faMessage} size="lg" />
+            <button className="text-left bg-green-400 p-2 w-full text-white outline-none hover:text-white text-center mx-auto rounded-xl justify-end hover:bg-green-600">
+              {width > 768 ? (
+                <FontAwesomeIcon icon={faMessage} size="lg" />
+              ) : (
+                "Contact Me"
+              )}
             </button>
           </div>
         </div>

@@ -20,6 +20,11 @@ const ReviewModal = ({ doctor, handleReviewModal }) => {
       });
       setReviews(updatedReview);
     });
+    socket.on("review_deleted", (data) => {
+      setReviews((prevReviews) =>
+        prevReviews.filter((review) => review._id !== data)
+      );
+    });
     return () => {
       socket.off("received_review");
       socket.off("review_updated");

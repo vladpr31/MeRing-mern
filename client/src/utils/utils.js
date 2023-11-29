@@ -218,5 +218,9 @@ export const StarRating = (rating) => {
     );
   }
 
-  return <div>{starIcons}</div>;
+  return starIcons.length > 0 ? (
+    <div>{starIcons}</div>
+  ) : (
+    <FontAwesomeIcon icon={faStar} className="text-yellow-500" />
+  );
 };

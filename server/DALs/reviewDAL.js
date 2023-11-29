@@ -8,4 +8,7 @@ const createNewReview = (review) => {
 const updateReview = (reviewId, updatedReview) => {
   return Review.findByIdAndUpdate(reviewId, updatedReview, { new: true });
 };
-module.exports = { createNewReview, updateReview };
+const deleteReview = (reviewId) => {
+  return Review.findOneAndDelete({ _id: reviewId });
+};
+module.exports = { createNewReview, updateReview, deleteReview };

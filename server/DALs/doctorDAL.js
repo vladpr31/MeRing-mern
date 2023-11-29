@@ -11,27 +11,38 @@ const createNewDoctorWithCredential = (doctorDetails) => {
   newDoctor.save();
   return newDoctor;
 };
-const updateDoctor = (doctorID, updateField, updatedDetails) => {
-  // Construct the update object dynamically
-  if (updateField !== "reviews") {
+const updateDoctor = async (doctorID, updateField, updatedDetails) => {
+  if (updateField !== "addReview" && updateField !== "deleteReview") {
     const updateObject = { [updateField]: updatedDetails };
     return DoctorDB.findByIdAndUpdate(doctorID, updateObject, {
       upsert: true,
-      new: true, // Return the modified document, not the original
+      new: true,
     }).then((result) => {
-      console.log(result);
       return result;
     });
-  } else {
+  } else if (updateField === "addReview") {
     const updateObject = { $addToSet: { [updateField]: updatedDetails } };
 
     return DoctorDB.findByIdAndUpdate(doctorID, updateObject, {
       upsert: true,
       new: true, // Return the modified document, not the original
     }).then((result) => {
-      console.log(result);
       return result;
     });
+  } else if (updateField === "deleteReview") {
+    const updateObject = {
+      $pull: { reviews: { _id: updatedDetails } },
+    };
+
+    const doctor = await DoctorDB.findOneAndUpdate(
+      { _id: doctorID },
+      updateObject,
+      {
+        new: true,
+      }
+    );
+
+    return doctor;
   }
 };
 const updateDoctorShifts = async (doctorID, shift) => {
