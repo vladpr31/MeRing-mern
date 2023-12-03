@@ -141,9 +141,12 @@ export const createAdmin = () => {
 export const createArticle = (articleData) => {
   return API.post(`api/articles/createArticle`, articleData);
 };
-export const getAllArticles = () => {
-  return API.get("api/articles/getArticles");
+export const getAllArticles = (page) => {
+  return API.get(`api/articles/getArticles?page=${page}`);
 };
 export const getArticleImage = (image) => {
   return API.get(`api/images/image/${image}`, { responseType: "blob" });
+};
+export const getTotalArticlesAmount = () => {
+  return API.get("/api/articles/size");
 };

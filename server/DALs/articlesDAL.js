@@ -1,4 +1,3 @@
-const { default: mongoose } = require("mongoose");
 const ArticleDB = require("../models/articleModel");
 
 const createArticle = (articleData) => {
@@ -6,7 +5,16 @@ const createArticle = (articleData) => {
   newArticle.save();
   return newArticle;
 };
-const getAllArticles = async () => {
-  return ArticleDB.find({}).populate("articleImage");
+const getAllArticles = async (startIndex) => {
+  const articles = ArticleDB.find({})
+    .populate("articleImage")
+    .find()
+    .sort({ _id: -1 }) //_id:-1 sort from newest.
+    .limit(2); //limits to return 8 pages per find().
+  // .skip(startIndex); //skip the startIndex.
+  return articles;
 };
-module.exports = { createArticle, getAllArticles };
+const getTotalAtriclesAmount = () => {
+  return ArticleDB.countDocuments({});
+};
+module.exports = { createArticle, getAllArticles, getTotalAtriclesAmount };

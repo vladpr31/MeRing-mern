@@ -3,8 +3,12 @@ const articleDAL = require("../../DALs/articlesDAL");
 const createArticle = (articleData) => {
   return articleDAL.createArticle(articleData);
 };
-const getAllArticles = async () => {
-  return articleDAL.getAllArticles();
+const getAllArticles = async (page) => {
+  const pagesLimit = 2;
+  const startIndex = (Number(page) - 1) * pagesLimit;
+  return articleDAL.getAllArticles(startIndex);
 };
-
-module.exports = { createArticle, getAllArticles };
+const getTotalAtriclesAmount = () => {
+  return articleDAL.getTotalAtriclesAmount();
+};
+module.exports = { createArticle, getAllArticles, getTotalAtriclesAmount };

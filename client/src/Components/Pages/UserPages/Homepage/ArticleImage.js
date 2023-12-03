@@ -6,7 +6,7 @@ const ArticleImage = ({ image }) => {
     const fetchImage = async () => {
       try {
         const response = await getArticleImage(image.filename);
-        console.log(response);
+
         // Create a blob URL from the image data
         const blob = new Blob([response.data], {
           type: response.headers["content-type"],
@@ -21,9 +21,9 @@ const ArticleImage = ({ image }) => {
     };
 
     fetchImage();
-  }, []);
+  }, [image]);
 
-  return <div>{imageUrl && <img src={imageUrl} alt="Image" />}</div>;
+  return <img src={imageUrl} alt="Image" />;
 };
 
 export default ArticleImage;

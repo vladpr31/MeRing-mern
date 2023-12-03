@@ -1,36 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../../../UI/Navbar/Navbar";
 import DoctorHero from "../../../../Assets/doctor-hero.png";
 import RandLogo1 from "../../../../Assets/randLogo1.png";
 import RandLogo2 from "../../../../Assets/randLogo2.png";
 import RandLogo3 from "../../../../Assets/randLogo3.png";
 import RandLogo4 from "../../../../Assets/randLogo4.png";
-import RandImage1 from "../../../../Assets/randImage1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHandHoldingMedical,
   faMicroscope,
   faHourglassHalf,
   faLeaf,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { getAllArticles } from "../../../../api/api";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import ArticleImage from "./ArticleImage";
+import { motion, useInView } from "framer-motion";
+//import for pagination
+//import {getTotalArticlesAmount } from "../../../../api/api";
+// import Pagination from "../../../../Pagination/Pagination";
 const Homepage = () => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
   const [articles, setArticles] = useState([]);
 
+  // For Pagination
+  // const [currPage, setCurrPage] = useState(1);
+  // const [total, setTotal] = useState();
   useEffect(() => {
     const fetchLatestNews = async () => {
-      const news = await getAllArticles();
-      console.log(news.data);
-      if (news?.data?.length > 0) {
-        setArticles(news.data);
+      if (articles.length <= 0) {
+        const news = await getAllArticles();
+        // For Pagination ->
+        // const maxPages = await getTotalArticlesAmount();
+        // if (maxPages.data) {
+        //   setTotal(maxPages.data);
+        // }
+        if (news?.data?.length > 0) {
+          setArticles(news.data);
+        }
       }
     };
     fetchLatestNews();
   }, []);
+
   return (
     <>
       <Navbar />
@@ -212,16 +226,17 @@ const Homepage = () => {
         </h2>
         {articles.length > 0
           ? articles.map((article, index) => {
-              console.log(article);
               if (index % 2 == 0) {
                 return (
-                  <div className="mb-16 flex flex-wrap" key={index}>
+                  <motion.div
+                    className="mb-16 flex flex-wrap"
+                    key={index}
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "0%" }}
+                    transition={{ duration: 2 }}
+                  >
                     <div className="mb-6 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-6/12 lg:pr-6">
-                      <div
-                        className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20"
-                        data-te-ripple-init
-                        data-te-ripple-color="light"
-                      >
+                      <div className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20">
                         <ArticleImage image={article.articleImage} />
                       </div>
                     </div>
@@ -232,17 +247,23 @@ const Homepage = () => {
                       </h3>
 
                       <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
-                        Published{" "}
+                        Published on:{" "}
                         <u>
                           {new Date(article.date).toLocaleDateString("en-GB")}
                         </u>{" "}
-                        by {article.publisher}
+                        at:{" "}
+                        {new Date(article.date).toLocaleTimeString("en-GB", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}{" "}
+                        by
+                        {" " + article.publisher}
                       </p>
                       <p className="mb-6 text-neutral-500 dark:text-neutral-300">
                         {article.articleBody}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               } else {
                 return (
@@ -256,7 +277,7 @@ const Homepage = () => {
                         data-te-ripple-init
                         data-te-ripple-color="light"
                       >
-                        {article.articleImage}
+                        <ArticleImage image={article.articleImage} />
                       </div>
                     </div>
 
@@ -264,12 +285,19 @@ const Homepage = () => {
                       <h3 className="mb-4 text-2xl font-bold">
                         {article.title}
                       </h3>
-                      <div className="mb-4 flex items-center text-sm font-medium text-primary dark:text-primary-400">
-                        Art
-                      </div>
+
                       <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
-                        Published <u>{new Date(article.date)}</u> by
-                        <a href="#!">Anna Doe</a>
+                        Published on:{" "}
+                        <u>
+                          {new Date(article.date).toLocaleDateString("en-GB")}
+                        </u>{" "}
+                        at:{" "}
+                        {new Date(article.date).toLocaleTimeString("en-GB", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}{" "}
+                        by
+                        {" " + article.publisher}
                       </p>
                       <p className="text-neutral-500 dark:text-neutral-300">
                         {article.articleBody}
@@ -280,64 +308,28 @@ const Homepage = () => {
               }
             })
           : null}
+
+        {
+          // pagination works, fetches on demand but look bad when only 1 article on next page.
+          /* {total && total > 0 ? (
+          <div className="flex justify-center mx-auto">
+            <Pagination
+              currentPage={currPage}
+              totalCount={total}
+              pageSize={2}
+              onPageChange={(page) => setCurrPage(page)}
+            />
+          </div>
+        ) : null} */
+        }
+        <div className="text-center text-gray-500">
+          <a href="/news" className="text-center underline">
+            Other News <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+          </a>
+        </div>
       </section>
     </>
   );
 };
 
 export default Homepage;
-//  <div className="bg-[url('./Assets/1.png')] bg-cover bg-center h-full w-full ">
-//           <div className="flex flex-col gap-y-5 lg:flex-row bg-black bg-opacity-50 py-10 px-4">
-//             <div className="p-2 bg-white rounded-2xl mx-2 text-black lg:w-[33%]">
-//               <h2 className="text-black text-[24px] p-2">
-//                 <FontAwesomeIcon
-//                   icon={faHandHoldingMedical}
-//                   style={{ color: "#4dcadb" }}
-//                 />
-//                 <span className="ml-2">Professional Staff and Carers</span>
-//               </h2>
-//               <p>
-//                 At our clinics, our dedicated professionals and caring staff
-//                 prioritize you. Your well-being is our focus, ensuring expert
-//                 care, compassion, and a supportive environment from the first
-//                 step through our doors.
-//               </p>
-//             </div>
-//             <div className="p-2 bg-white rounded-2xl mx-2 text-black lg:w-[33%]">
-//               {" "}
-//               <h2 className="text-black text-[24px] p-2 w-fit ">
-//                 <FontAwesomeIcon
-//                   icon={faMicroscope}
-//                   style={{ color: "#bd8305" }}
-//                 />
-//                 <span className="ml-2 place-self-center w-fit">
-//                   Our Commitment
-//                 </span>
-//               </h2>
-//               <p>
-//                 We're dedicated to continuous research and growth, ensuring our
-//                 patients benefit from the latest technologies and treatments.
-//                 Our commitment to innovation guarantees personalized,
-//                 state-of-the-art care for every individual, promoting a
-//                 healthier tomorrow.
-//               </p>
-//             </div>
-//             <div className="p-2 bg-white rounded-2xl mx-2 text-black lg:w-[33%]">
-//               {" "}
-//               <h2 className="text-black text-[24px] p-2">
-//                 <FontAwesomeIcon
-//                   icon={faHandHoldingMedical}
-//                   style={{ color: "#1ba4b6" }}
-//                 />
-//                 <span className="ml-2">Efficient Healthcare Excellence</span>
-//               </h2>
-//               <p>
-//                 At our clinic, we pride ourselves on providing efficient
-//                 services that prioritize your time and well-being. From easy
-//                 online scheduling to swift results, we ensure a streamlined
-//                 healthcare experience tailored to your needs. Your health is our
-//                 priority, delivered with speed and precision.
-//               </p>
-//             </div>
-//           </div>
-//         </div>
