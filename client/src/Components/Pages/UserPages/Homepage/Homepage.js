@@ -224,90 +224,91 @@ const Homepage = () => {
         <h2 className="mb-16 text-center text-2xl font-bold">
           Latest articles
         </h2>
-        {articles.length > 0
-          ? articles.map((article, index) => {
-              if (index % 2 == 0) {
-                return (
-                  <motion.div
-                    className="mb-16 flex flex-wrap"
-                    key={index}
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "0%" }}
-                    transition={{ duration: 2 }}
-                  >
-                    <div className="mb-6 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-6/12 lg:pr-6">
-                      <div className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20">
-                        <ArticleImage image={article.articleImage} />
-                      </div>
-                    </div>
-
-                    <div className="w-full shrink-0 grow-0 basis-auto lg:w-6/12 lg:pl-6">
-                      <h3 className="mb-4 text-2xl font-bold">
-                        {article.title}
-                      </h3>
-
-                      <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
-                        Published on:{" "}
-                        <u>
-                          {new Date(article.date).toLocaleDateString("en-GB")}
-                        </u>{" "}
-                        at:{" "}
-                        {new Date(article.date).toLocaleTimeString("en-GB", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}{" "}
-                        by
-                        {" " + article.publisher}
-                      </p>
-                      <p className="mb-6 text-neutral-500 dark:text-neutral-300">
-                        {article.articleBody}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              } else {
-                return (
-                  <div
-                    className="mb-16 flex flex-wrap lg:flex-row-reverse"
-                    key={index}
-                  >
-                    <div className="mb-6 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-6/12 lg:pl-6">
-                      <div
-                        className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20"
-                        data-te-ripple-init
-                        data-te-ripple-color="light"
-                      >
-                        <ArticleImage image={article.articleImage} />
-                      </div>
-                    </div>
-
-                    <div className="w-full shrink-0 grow-0 basis-auto lg:w-6/12 lg:pr-6">
-                      <h3 className="mb-4 text-2xl font-bold">
-                        {article.title}
-                      </h3>
-
-                      <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
-                        Published on:{" "}
-                        <u>
-                          {new Date(article.date).toLocaleDateString("en-GB")}
-                        </u>{" "}
-                        at:{" "}
-                        {new Date(article.date).toLocaleTimeString("en-GB", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}{" "}
-                        by
-                        {" " + article.publisher}
-                      </p>
-                      <p className="text-neutral-500 dark:text-neutral-300">
-                        {article.articleBody}
-                      </p>
+        {articles.length > 0 ? (
+          articles.map((article, index) => {
+            if (index % 2 == 0) {
+              return (
+                <motion.div
+                  className="mb-16 flex flex-wrap"
+                  key={index}
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "0%" }}
+                  transition={{ duration: 2 }}
+                >
+                  <div className="mb-6 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-6/12 lg:pr-6">
+                    <div className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20">
+                      <ArticleImage image={article.articleImage} />
                     </div>
                   </div>
-                );
-              }
-            })
-          : null}
+
+                  <div className="w-full shrink-0 grow-0 basis-auto lg:w-6/12 lg:pl-6">
+                    <h3 className="mb-4 text-2xl font-bold">{article.title}</h3>
+
+                    <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
+                      Published on:{" "}
+                      <u>
+                        {new Date(article.date).toLocaleDateString("en-GB")}
+                      </u>{" "}
+                      at:{" "}
+                      {new Date(article.date).toLocaleTimeString("en-GB", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}{" "}
+                      by
+                      {" " + article.publisher}
+                    </p>
+                    <p className="mb-6 text-neutral-500 dark:text-neutral-300">
+                      {article.articleBody}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            } else {
+              return (
+                <div
+                  className="mb-16 flex flex-wrap lg:flex-row-reverse"
+                  key={index}
+                >
+                  <div className="mb-6 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-6/12 lg:pl-6">
+                    <div
+                      className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20"
+                      data-te-ripple-init
+                      data-te-ripple-color="light"
+                    >
+                      <ArticleImage image={article.articleImage} />
+                    </div>
+                  </div>
+
+                  <div className="w-full shrink-0 grow-0 basis-auto lg:w-6/12 lg:pr-6">
+                    <h3 className="mb-4 text-2xl font-bold">{article.title}</h3>
+
+                    <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
+                      Published on:{" "}
+                      <u>
+                        {new Date(article.date).toLocaleDateString("en-GB")}
+                      </u>{" "}
+                      at:{" "}
+                      {new Date(article.date).toLocaleTimeString("en-GB", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}{" "}
+                      by
+                      {" " + article.publisher}
+                    </p>
+                    <p className="text-neutral-500 dark:text-neutral-300">
+                      {article.articleBody}
+                    </p>
+                  </div>
+                </div>
+              );
+            }
+          })
+        ) : (
+          <div className="text-center p-2">
+            No News (Development: You can create new News Article from the Admin
+            Panel)
+          </div>
+        )}
 
         {
           // pagination works, fetches on demand but look bad when only 1 article on next page.
