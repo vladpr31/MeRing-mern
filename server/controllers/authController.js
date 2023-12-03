@@ -3,10 +3,12 @@ const validation = require("../middlewares/validation-middleware");
 const axios = require("axios");
 const login = async (req, res) => {
   try {
+    console.log("login body:", req.body);
     const response = await authBLL.userLogin(req.body);
     if (response && typeof response !== "string") {
       res.status(201).json(response);
     } else {
+      console.log(response);
       res.status(401).json({ message: "Wrong Credentials or Invalid User" });
     }
   } catch (err) {

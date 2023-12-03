@@ -138,3 +138,12 @@ export const removeShift = (doctorID, shiftID) => {
 export const createAdmin = () => {
   return API.get("api/admin/new-admin");
 };
+export const createArticle = (articleData) => {
+  return API.post(`api/articles/createArticle`, articleData);
+};
+export const getAllArticles = () => {
+  return API.get("api/articles/getArticles");
+};
+export const getArticleImage = (image) => {
+  return API.get(`api/images/image/${image}`, { responseType: "blob" });
+};

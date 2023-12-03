@@ -22,7 +22,7 @@ const validateUser = async (patientInfo) => {
     const user = await UserDB.findOne({
       email: { $regex: patientInfo.email, $options: "i" },
     });
-
+    console.log(user);
     if (user.role !== "admin") {
       const isValid = await bcrypt.compare(patientInfo.password, user.password);
       if (!isValid) {
@@ -33,6 +33,7 @@ const validateUser = async (patientInfo) => {
       return user;
     }
   } catch (err) {
+    console.log("error:", err);
     return "No User Found";
   }
 };

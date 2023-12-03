@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import ClinicModal from "./ClinicModal";
 import DoctorModal from "./DoctorModal";
-import DashboardNavBar from "../../../UI/Navbar/DashboardNavbar";
 import { getAllDoctors } from "../../../../Redux/Actions/doctorActions";
 import { getAllClinics } from "../../../../Redux/Actions/clinicActions";
 import { useDispatch } from "react-redux";
+import ArticleModal from "./ArticleModal";
 const AdminPage = () => {
   const dispatch = useDispatch();
   const [option, setOption] = useState("");
   const [renderDoctorModal, setRenderDoctorModal] = useState(false);
   const [renderClinicModal, setRenderClinicModal] = useState(false);
+  const [renderArticleModal, setRenderArticleModal] = useState(false);
   const showDoctorModal = () => {
     window.doctor_modal.showModal();
   };
   const showClinicModal = () => {
     window.clinic_modal.showModal();
   };
-
+  const showArticleModal = () => {
+    window.article_modal.showModal();
+  };
   const buttonHandler = (e) => {
     const { id } = e.target;
     switch (id) {
@@ -34,6 +37,11 @@ const AdminPage = () => {
         setOption(id);
         setRenderDoctorModal(true);
         showDoctorModal();
+        break;
+      case "createArticleBtn":
+        setOption(id);
+        setRenderArticleModal(true);
+        showArticleModal();
         break;
       default:
         setOption("");
@@ -58,6 +66,13 @@ const AdminPage = () => {
           (Creating Doctor with Credentials is like creating a worker who has
           his own page and such)
         </p>
+        <button
+          className="btn btn-primary w-fit mx-auto"
+          onClick={buttonHandler}
+          id="createArticleBtn"
+        >
+          Create New Article
+        </button>
         <div className="flex items-center mx-auto">
           <div className="grid grid-cols-2 p-3">
             <div className="grid w-fit">
@@ -120,6 +135,9 @@ const AdminPage = () => {
         </dialog>
         <dialog id="doctor_modal" className="modal">
           {renderDoctorModal ? <DoctorModal props={option} /> : null}
+        </dialog>
+        <dialog id="article_modal" className="modal">
+          {renderArticleModal ? <ArticleModal /> : null}
         </dialog>
       </div>
     </div>
