@@ -3,9 +3,11 @@ const { connectDB, getGFS } = require("./config/mongoDB.config");
 const express = require("express");
 const cors = require("cors");
 const api = require("./routes/index");
+require("dotenv").config();
+
 //Server Creation & Connection to DB.
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.CLIENT_URI,
 };
 connectDB()
   .then(() => {
