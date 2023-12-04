@@ -13,9 +13,8 @@ const MyAppointments = () => {
   useEffect(() => {
     const fetchPatientAppointments = async () => {
       if (typeof user.appointments !== "object") {
-        console.log("in fetch");
         dispatch(getPatientAppointments(auth.id));
-        let appointments = data.sort(function (a, b) {
+        let appointments = user.appointments.sort(function (a, b) {
           return (
             new Date(a.appointmentDateTime) - new Date(b.appointmentDateTime)
           );
