@@ -3,13 +3,9 @@ const { getGFS, getGFSBucket } = require("../config/mongoDB.config");
 const getImage = async (req, res) => {
   try {
     const gfs = getGFS();
-
     const filename = req.params.filename;
-    console.log(filename);
     const gfsBucket = getGFSBucket();
-
     const file = await gfs.files.findOne({ filename });
-    console.log(file);
     if (!file) {
       return res.status(404).json({ message: "File not found" });
     }

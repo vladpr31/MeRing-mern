@@ -1,6 +1,7 @@
 const articleDAL = require("../../DALs/articlesDAL");
 
 const createArticle = (articleData) => {
+  console.log(articleData);
   return articleDAL.createArticle(articleData);
 };
 const getAllArticles = async (page) => {
