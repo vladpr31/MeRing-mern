@@ -17,6 +17,17 @@ import {
   faStarHalfStroke,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Mocukp1 from "../Assets/MockUps/1.png";
+import Mocukp2 from "../Assets/MockUps/2.png";
+import Mocukp3 from "../Assets/MockUps/3.png";
+import Mocukp4 from "../Assets/MockUps/4.png";
+import Mocukp5 from "../Assets/MockUps/5.png";
+import Mocukp6 from "../Assets/MockUps/6.png";
+import Mocukp7 from "../Assets/MockUps/7.png";
+import Mocukp8 from "../Assets/MockUps/8.png";
+import Mocukp10 from "../Assets/MockUps/10.png";
+import Mocukp11 from "../Assets/MockUps/11.png";
+import Mocukp12 from "../Assets/MockUps/12.png";
 export const checkInputs = (newUser, newPatient) => {
   const error = {
     email: "",
@@ -224,3 +235,50 @@ export const StarRating = (rating) => {
     <FontAwesomeIcon icon={faStar} className="text-yellow-500" />
   );
 };
+
+export const mockUpImages = [
+  {
+    image: Mocukp1,
+    desc: "Experience seamless onboarding with our app! Simply create your account and personalize your health journey on the first run. Your well-being, your way.",
+  },
+  {
+    image: Mocukp2,
+    desc: "Effortlessly sync with your personal ring on the initial setup. Connect seamlessly across all devices for a unified and tailored experience with ease.",
+  },
+  {
+    image: Mocukp3,
+    desc: "Enjoy instant access to your comprehensive health summary on the first login. Your latest information neatly summarized on a single, user-friendly home screen for a quick and easy overview.",
+  },
+  {
+    image: Mocukp4,
+    desc: "Explore a diverse range of doctors spanning various specialties right from the start. Enjoy the flexibility of choosing from a variety of healthcare professionals tailored to your specific needs",
+  },
+  {
+    image: Mocukp5,
+    desc: "Discover nearby doctors effortlessly. Evaluate their ratings, availability, and more, empowering you with all the information needed to make informed healthcare decisions.",
+  },
+  {
+    image: Mocukp6,
+    desc: "Access detailed information about doctors, their services, clinic locations, and engage in convenient chats with them—all at your fingertips.",
+  },
+  {
+    image: Mocukp7,
+    desc: "Schedule appointments with your preferred doctor effortlessly, and allow us to send timely reminders so you never miss an important healthcare commitment.",
+  },
+  {
+    image: Mocukp8,
+    desc: "Edit or cancel your appointments at your convenience, anytime and anywhere, putting you in control of your healthcare scheduling.",
+  },
+  {
+    image: Mocukp10,
+    desc: "Effortlessly navigate through your personal health data, appointment history, and prescriptions with user-friendly features, ensuring convenient access to all your important information.",
+  },
+  {
+    image: Mocukp11,
+    desc: "Update your information seamlessly at any time, and keep us informed of your latest changes for a personalized and up-to-date health profile.",
+  },
+  {
+    image: Mocukp12,
+    desc: "Dive deeper into detailed explanations of our latest analyses, providing you with comprehensive insights and a clearer understanding of your health data.",
+  },
+];
