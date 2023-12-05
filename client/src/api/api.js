@@ -17,6 +17,7 @@ API.interceptors.response.use(
     return res;
   },
   (err) => {
+    console.log(err);
     console.log(err.response.data.message);
     if (err.response.data.message === "JWT REFRESH TOKEN EXPIRED") {
       window.location.href = "/";
@@ -92,7 +93,10 @@ export const getDoctorById = (doctorID) => {
 export const getDoctorAppointments = (doctorID) => {
   return API.get(`api/appointments/authorized/${doctorID}`);
 };
-
+//patient api calls
+export const getAllPatients = () => {
+  return API.get("api/users/patients/getAll");
+};
 //clinic api calls
 export const getAllClinics = () => {
   return API.get("api/clinics/getAll");

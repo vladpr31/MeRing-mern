@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DashboardNavbar from "../../UI/Navbar/DashboardNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import ChatWindow from "./ChatWindow";
 import Select from "react-select";
@@ -12,7 +11,6 @@ import {
 import { getSocket } from "../../../api/socket";
 import MessageIndicator from "../../UI/MessageIndicator";
 import useWindowSize from "../../../hooks/useWindowSize";
-import { useBeforeUnload } from "react-router-dom";
 
 const MessagesPage = () => {
   const { user, isLoading } = useSelector((state) => state.user);

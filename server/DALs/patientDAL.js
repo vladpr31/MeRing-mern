@@ -1,5 +1,4 @@
-const Apotropos = require("../models/apotroposModel");
-
+// const Apotropos = require("../models/apotroposModel");
 const PatientDB = require("../models/patientModel");
 const mongoose = require("mongoose");
 
@@ -13,6 +12,9 @@ const createNewPatient = (patientInfo) => {
   }
 };
 
+const getAllPatients = () => {
+  return PatientDB.find({}, { _id: 0 });
+};
 const updateApotroposOfPatient = (id, apotropos) => {
   try {
     return PatientDB.findByIdAndUpdate(id, { apotropos: apotropos })
@@ -46,7 +48,6 @@ const addNewAppointment = (patientID, appointment) => {
     $addToSet: { appointments: appointment },
   });
 };
-
 const getPatientByAccountID = (accountID) => {
   return PatientDB.findOne({ account: accountID }, { _id: 1 });
 };
@@ -120,4 +121,5 @@ module.exports = {
   getPatientByAccountID,
   getPatientAppointmentsByDoctor,
   updatePatient,
+  getAllPatients,
 };

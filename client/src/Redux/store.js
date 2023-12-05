@@ -11,6 +11,7 @@ import DoctorReducer from "./Reducers/doctorReducer";
 import ClinicsReducer from "./Reducers/clinicReducer";
 import ChatReducer from "./Reducers/chatReducer";
 import SocketReducer from "./Reducers/socketReducer";
+import PatientsReducer from "./Reducers/patientsReducer";
 
 const persistSocketConfig = {
   key: "socket",
@@ -30,12 +31,19 @@ const doctorsPersistConfig = {
   key: "doctors",
   storage,
 };
-
+const patientPersistConfig = {
+  key: "patients",
+  storage,
+};
 const persistedUserReducer = persistReducer(userPersistConfig, UserReducer);
 const persistedChatsReducer = persistReducer(chatsPersistConfig, ChatReducer);
 const persistedDoctorReducer = persistReducer(
   doctorsPersistConfig,
   DoctorReducer
+);
+const persistedPatientReducer = persistReducer(
+  patientPersistConfig,
+  PatientsReducer
 );
 const persistedSocketReducer = persistReducer(
   persistSocketConfig,
@@ -48,6 +56,7 @@ const rootReducer = combineReducers({
   user: persistedUserReducer,
   chats: persistedChatsReducer,
   socket: persistedSocketReducer,
+  patients: persistedPatientReducer,
 });
 
 export const store = configureStore(

@@ -6,6 +6,10 @@ const createNewPatient = (patientInfo) => {
   return patientDAL.createNewPatient(newPatient);
 };
 
+const getAllPatients = () => {
+  return patientDAL.getAllPatients();
+};
+
 const updateApotroposOfPatient = (id, apotropos) => {
   return patientDAL.updateApotroposOfPatient(id, apotropos);
 };
@@ -43,4 +47,5 @@ module.exports = {
   getPatientByAccountID,
   getPatientAppointmentsByDoctor,
   updatePatient,
+  getAllPatients,
 };

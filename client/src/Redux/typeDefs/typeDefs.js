@@ -15,11 +15,14 @@ export const IS_LOADING = "IS_LOADING";
 export const IS_DONE = "IS_DONE";
 export const ADD_APPOINTMENT_SUCCESS = " ADD_APPOINTMENT_SUCCESS";
 export const REMOVE_APPOINTMENT_SUCCESS = "REMOVE_APPOINTMENT_SUCCESS";
-//docotr constants
+//doctor constants
 export const SET_DOCTORS = "SET_DOCTORS";
 export const DOCTORS_LOADING_IS_DONE = "DOCTORS_LOADING_IS_DONE";
 export const DOCTORS_LOADING = "DOCTORS_LOADING";
-
+//patient constants
+export const SET_PATIENTS = "SET_PATIENTS";
+export const PATIENTS_LOADING_IS_DONE = "PATIENTS_LOADING_IS_DONE";
+export const PATIENTS_LOADING = "PATIENTS_LOADING";
 //clinic constants
 export const DONE_LOADING_CLINICS = "DONE_LOADING_CLINICS";
 export const LOADING_CLINICS = "LOADING_CLINICS";

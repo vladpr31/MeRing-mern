@@ -1,5 +1,5 @@
 //importing modules.
-const { connectDB, getGFS } = require("./config/mongoDB.config");
+const { connectDB } = require("./config/mongoDB.config");
 const express = require("express");
 const cors = require("cors");
 const api = require("./routes/index");
