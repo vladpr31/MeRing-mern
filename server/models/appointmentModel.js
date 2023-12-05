@@ -5,6 +5,7 @@ const appointmentModel = new mongoose.Schema({
   doctor: { type: mongoose.Schema.Types.ObjectId, ref: "Doctors" },
   clinic: { type: mongoose.Schema.Types.ObjectId, ref: "Clinics" },
   appointment: { type: mongoose.Schema.Types.ObjectId, ref: "Shifts" },
+  been: { type: Boolean, default: false },
 });
 
 appointmentModel.post("save", async function (doc) {

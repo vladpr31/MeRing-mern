@@ -25,6 +25,7 @@ const PatientRegister = () => {
     phoneNumber: "",
     illnesses: [],
     Apotropos: null,
+    gender: "",
   });
   const [newUser, setNewUser] = useState({
     email: "",
@@ -91,6 +92,18 @@ const PatientRegister = () => {
             phoneNumber: value,
           }));
           break;
+        case "patient_gender_male":
+          setnewPatient((prevState) => ({
+            ...prevState,
+            gender: value,
+          }));
+          break;
+        case "patient_gender_female":
+          setnewPatient((prevState) => ({
+            ...prevState,
+            gender: value,
+          }));
+          break;
         case "close_pressed":
           setApotropos({
             firstName: "",
@@ -145,10 +158,36 @@ const PatientRegister = () => {
     };
     getDiseases();
   }, []);
-
+  console.log(newPatient);
   return (
     <div className="py-4 px-8 min-h-screen">
       <form>
+        <div className="flex justify-evenly mb-8">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              name="radio"
+              className="radio radio-accent mr-2"
+              checked={newPatient.gender === "Male"}
+              onChange={formHandler}
+              id="patient_gender_male"
+              value="Male"
+            />{" "}
+            <label>Male</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              name="radio"
+              className="radio radio-accent mr-2"
+              checked={newPatient.gender === "Female"}
+              onChange={formHandler}
+              id="patient_gender_female"
+              value="Female"
+            />
+            <label>Female</label>
+          </div>
+        </div>
         <div className="flex mb-4">
           <div className="w-1/2 mr-1">
             <label className="block text-grey-darker text-sm font-bold mb-2">

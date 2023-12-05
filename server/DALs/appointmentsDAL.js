@@ -6,6 +6,7 @@ const createAppointment = (appointment) => {
     patient: appointment.patientID,
     doctor: appointment.doctor._id,
     clinic: appointment.doctor.clinic._id,
+    been: false,
   });
   newAppointment.save();
   return newAppointment;

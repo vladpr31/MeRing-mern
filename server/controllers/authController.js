@@ -23,11 +23,15 @@ const registerUser =
     const { info } = req.body;
     const maxRetries = 3; // Set the maximum number of retries
     let retries = 0;
-
+    console.log("info:", info);
     while (retries < maxRetries) {
-      console.log("still in while");
       try {
-        const randomUser = await axios.get("https://randomuser.me/api/");
+        const gender = info.newPatient.gender.toLowerCase();
+
+        const randomUser = await axios.get(
+          `https://randomuser.me/api/?gender=${gender}`
+        );
+
         const userRandomPicture = randomUser.data.results[0].picture;
         info.profileImage = userRandomPicture;
 
@@ -74,7 +78,12 @@ const registerWorker =
 
     while (retries < maxRetries) {
       try {
-        const randomUser = await axios.get("https://randomuser.me/api/");
+        console.log(req.body);
+        const gender = req.body.doctor.gender.toLowerCase();
+
+        const randomUser = await axios.get(
+          `https://randomuser.me/api/?gender=${gender}`
+        );
         const userRandomPicture = randomUser.data.results[0].picture;
         req.body.doctor.profileImage = userRandomPicture;
         const response = await authBLL.registerNewDoctor(req.body);

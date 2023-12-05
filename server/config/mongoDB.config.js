@@ -5,7 +5,7 @@ require("dotenv").config();
 const connectDB = () => {
   return new Promise((resolve, reject) => {
     mongoose
-      .connect(process.env.MONGODB_URI)
+      .connect(process.env.MONGODB_DEV_URI)
       .then(() => {
         console.log("Connected to MongoDB");
         gfsBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {

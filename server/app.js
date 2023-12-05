@@ -7,7 +7,7 @@ require("dotenv").config();
 
 //Server Creation & Connection to DB.
 const corsOptions = {
-  origin: process.env.CLIENT_URI,
+  origin: process.env.CLIENT_DEV_URI,
 };
 connectDB()
   .then(() => {

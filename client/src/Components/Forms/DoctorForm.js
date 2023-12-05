@@ -14,6 +14,7 @@ const DoctorForm = ({ props }) => {
       lastName: "",
       clinic: {},
       speciality: "",
+      gender: "",
     }
   );
   const [proceedAction, setProceedAction] = useState(false);
@@ -40,6 +41,18 @@ const DoctorForm = ({ props }) => {
         setDoctor((prevState) => ({
           ...prevState,
           lastName: value,
+        }));
+      }
+      if (id === "doctor_gender_male") {
+        setDoctor((prevState) => ({
+          ...prevState,
+          gender: value,
+        }));
+      }
+      if (id === "doctor_gender_female") {
+        setDoctor((prevState) => ({
+          ...prevState,
+          gender: value,
         }));
       }
     }
@@ -85,7 +98,8 @@ const DoctorForm = ({ props }) => {
       doctor.firstName.length > 1 &&
       doctor.lastName.length > 1 &&
       doctor.clinic != null &&
-      doctor.speciality != null
+      doctor.speciality != null &&
+      doctor.gender.length > 0
     ) {
       dispatch(createNewDoctor(doctor));
     } else {
@@ -94,7 +108,7 @@ const DoctorForm = ({ props }) => {
       }, ${doctor.lastName.length > 0 ? null : "Last Name"}, 
       ${Object.keys(doctor.clinic).length > 0 ? null : "Clinic"}, ${
         doctor.speciality != "" ? null : "Speciality"
-      }`);
+      },${doctor.gender.length > 0 ? null : "Gender"}`);
     }
   };
   const editDoctorHandler = () => {
@@ -111,7 +125,8 @@ const DoctorForm = ({ props }) => {
       doctor.firstName.length > 1 &&
       doctor.lastName.length > 1 &&
       doctor.clinic != null &&
-      doctor.speciality != null
+      doctor.speciality != null &&
+      doctor.gender.length > 0
     ) {
       const worker = await dispatch(registerWorker({ docCredentials, doctor }));
       if (worker === "Email Already In Use") {
@@ -136,7 +151,7 @@ const DoctorForm = ({ props }) => {
       }, ${doctor.lastName.length > 0 ? null : "Last Name"}, 
       ${Object.keys(doctor.clinic).length > 0 ? null : "Clinic"}, ${
         doctor.speciality != "" ? null : "Speciality"
-      }`);
+      },${doctor.gender.length > 0 ? null : "Gender"}`);
     }
   };
 
@@ -147,6 +162,32 @@ const DoctorForm = ({ props }) => {
   ) {
     return (
       <div className="flex flex-col rounded-lg bg-gray-700 p-4 h-full justify-evenly">
+        <div className="flex justify-evenly mb-8">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              name="radio"
+              className="radio radio-accent mr-2"
+              checked={doctor.gender === "Male"}
+              onChange={doctorInputChangesHandler}
+              id="doctor_gender_male"
+              value="Male"
+            />{" "}
+            <label className="text-white">Male</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              name="radio"
+              className="radio radio-accent mr-2"
+              checked={doctor.gender === "Female"}
+              onChange={doctorInputChangesHandler}
+              id="doctor_gender_female"
+              value="Female"
+            />
+            <label className="text-white">Female</label>
+          </div>
+        </div>
         <div className="flex justify-between items-center p-2">
           <label
             className={`w-fit whitespace-nowrap text-white mr-4 ${
@@ -163,7 +204,7 @@ const DoctorForm = ({ props }) => {
             className="text-center w-full rounded-lg p-2 bg-gray-300 focus:bg-blue-500 focus:text-white text-black"
             value={doctor?.firstName || ""}
             onChange={doctorInputChangesHandler}
-          ></input>
+          />
         </div>
         <div className="flex justify-between items-center p-2">
           <label

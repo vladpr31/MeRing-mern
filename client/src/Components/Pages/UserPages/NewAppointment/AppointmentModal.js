@@ -7,13 +7,13 @@ import { createNewAppointment } from "../../../../Redux/Actions/userActions";
 
 const AppointmentModal = ({ props }) => {
   const { auth } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [date, setDate] = useState();
   const [appointments, setAppointments] = useState(props.doctor.shifts);
   const [showModal, setShowModal] = useState(false);
   const [appointment, setAppointment] = useState();
   const [activeButton, setActiveButton] = useState();
-  console.log("test");
   const dateHandler = (selectedDate) => {
     setDate(selectedDate);
   };
@@ -113,6 +113,19 @@ const AppointmentModal = ({ props }) => {
         </form>
       ) : (
         <div className="flex flex-col bg-white items-center p-6 rounded-2xl ">
+          {user.gender !== props.doctor.gender ? (
+            <h1 className="bg-gray-600 text-white rounded-2xl p-2">
+              Note:
+              <br />
+              This is a{" "}
+              <span className="underline text-red-500">
+                {user.gender === "Male" ? "female" : "male "}
+              </span>{" "}
+              doctor.
+              <br /> If you still want to proceed with creating this appointment
+              note that you are allowed to bring an escort or apotropos.
+            </h1>
+          ) : null}
           <h2 className="text-[32px]">My Services:</h2>
           <ol className="p-6 w-fit text-left bg-cyan-500 bg-opacity-40 list-decimal rounded-2xl mb-4">
             <li className="m-2">

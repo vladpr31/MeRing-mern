@@ -15,6 +15,7 @@ const doctorModel = new mongoose.Schema({
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointments" }],
   shifts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Shifts" }],
   profileImage: Object,
+  gender: String,
 });
 
 //adds the docots to the clinic workers collection.

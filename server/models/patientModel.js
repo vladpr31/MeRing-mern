@@ -14,6 +14,7 @@ const patientModel = new mongoose.Schema({
   messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Messages" }],
   profileImage: Object,
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
+  gender: String,
 });
 
 const Patient = mongoose.model("Patients", patientModel);
