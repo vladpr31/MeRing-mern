@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
-import Loader from "../../../UI/Loader";
-import { getSpecialtiesData } from "../../../../api/api";
-import DoctorForm from "../../../Forms/DoctorForm";
+import Loader from "../UI/Loader";
+import { getSpecialtiesData } from "../../api/api";
+import DoctorForm from "../Forms/DoctorForm";
 
 /**
  *

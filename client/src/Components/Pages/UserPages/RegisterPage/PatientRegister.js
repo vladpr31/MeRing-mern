@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { getDiseasesData } from "../../../../api/api";
-import ApotroposModal from "./ApotroposModal";
+import ApotroposModal from "../../../Modals/ApotroposModal";
 import { useDispatch } from "react-redux";
 import { register } from "../../../../Redux/Actions/authActions";
 import { useNavigate } from "react-router";

@@ -6,7 +6,10 @@ const patientModel = new mongoose.Schema({
   apotropos: { type: mongoose.Schema.Types.ObjectId, ref: "Apotropos" } || null,
   location: String,
   phoneNumber: Number,
-  illnesses: [],
+  medicalRecord: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "MedicalRecords",
+  },
   dateOfBirth: Date,
   appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Appointments" }],
   account: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },

@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 const TableList = ({ data, type, clinic, confirmButtonAction }) => {
   const removeShiftHandler = (e) => {
     const { id } = e.target;

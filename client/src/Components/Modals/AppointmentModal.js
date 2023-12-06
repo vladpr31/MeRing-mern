@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "./ReactCalendar.css";
+import "../Styles/ReactCalendar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewAppointment } from "../../../../Redux/Actions/userActions";
+import { createNewAppointment } from "../../Redux/Actions/userActions";
 
 const AppointmentModal = ({ props }) => {
   const { auth } = useSelector((state) => state.auth);

@@ -11,7 +11,17 @@ const medicalRecordModel = new mongoose.Schema({
   allergies: [],
   medications: [],
   socioeconomic: { type: String, default: "Middle" },
+  visits: [],
+  previousRecords: [],
+});
+
+medicalRecordModel.post("save", async (doc) => {
+  await Patient.findByIdAndUpdate(
+    { _id: this.patient.toString() },
+    { medicalRecord: this._id }
+  );
 });
 
 const Record = mongoose.model("Records", medicalRecordModel);
 module.exports = Record;
+const Patient = require("./patientModel");

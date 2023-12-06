@@ -1,7 +1,7 @@
 import { faKey, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import "./EditProfile.css";
+import "../../../Styles/EditProfile.css";
 import { useSelector } from "react-redux";
 const EditProfile = () => {
   const { user } = useSelector((state) => state.user);

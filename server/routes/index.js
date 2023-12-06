@@ -12,9 +12,12 @@ const shiftRoutes = require("./shiftRoutes");
 const adminRoutes = require("./adminRoutes");
 const articleRoutes = require("./articleRoutes");
 const imageRoutes = require("./imageRoutes");
+const medicalRecordRoutes = require("./medicalRecordRoutes");
+
 // Define middleware for token verification
-const verifyToken = require("../middlewares/jwtVerify"); // Make sure to implement or import this middleware
+const verifyToken = require("../middlewares/jwtVerify");
 const { upload } = require("../middlewares/uploadImage");
+
 // Apply the token verification middleware to the routes that require it
 router.use("/users", verifyToken, userRoutes);
 router.use("/doctors", verifyToken, doctorsRoutes);
@@ -22,11 +25,12 @@ router.use("/appointments", verifyToken, appointmentsRoutes);
 router.use("/clinics", verifyToken, clinicRoutes);
 router.use("/chat", verifyToken, chatRoutes);
 router.use("/shift", verifyToken, shiftRoutes);
-router.use("/admin", adminRoutes);
+router.use("/records", verifyToken, medicalRecordRoutes);
 
 // Routes that don't require token verification
 router.use("/auth", authRoutes);
 router.use("/scrap", scrapRoutes);
 router.use("/articles", upload.single("articleImage"), articleRoutes);
 router.use("/images", imageRoutes);
+router.use("/admin", adminRoutes);
 module.exports = router;

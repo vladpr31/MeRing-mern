@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ClinicModal from "./ClinicModal";
-import DoctorModal from "./DoctorModal";
+import ClinicModal from "../../../Modals/ClinicModal";
+import DoctorModal from "../../../Modals/DoctorModal";
 import { getAllDoctors } from "../../../../Redux/Actions/doctorActions";
 import { getAllClinics } from "../../../../Redux/Actions/clinicActions";
 import { useDispatch } from "react-redux";
-import ArticleModal from "./ArticleModal";
+import ArticleModal from "../../../Modals/ArticleModal";
 const AdminPage = () => {
   const dispatch = useDispatch();
   const [option, setOption] = useState("");

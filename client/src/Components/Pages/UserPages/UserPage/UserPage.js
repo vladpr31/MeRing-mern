@@ -5,7 +5,7 @@ import DashboardNavbar from "../../../UI/Navbar/DashboardNavbar";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import BottomNav from "../../../UI/Navbar/BottomNav";
 import Loader from "../../../UI/Loader";
-
+import MedicalRecordModal from "../../../Modals/MedicalRecordModal";
 const UserPage = ({ children }) => {
   const { user, isLoading } = useSelector((state) => state.user);
   const { auth } = useSelector((state) => state.auth);
@@ -15,7 +15,9 @@ const UserPage = ({ children }) => {
   const currentViewHandler = (view) => {
     localStorage.setItem("currTab", view);
   };
-
+  if (!user.medicalRecord) {
+    <MedicalRecordModal />;
+  }
   if (isLoading && auth.role !== "admin") {
     return <Loader />;
   } else {

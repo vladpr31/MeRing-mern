@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReviewWindow from "./ReviewWindow";
-import ReviewForm from "./ReviewForm";
-import { getSocket } from "../../../../api/socket";
+import ReviewWindow from "../Pages/UserPages/Reviews/ReviewWindow";
+import ReviewForm from "../Forms/ReviewForm";
+import { getSocket } from "../../api/socket";
 import { useDispatch } from "react-redux";
 const ReviewModal = ({ doctor, handleReviewModal }) => {
   const dispatch = useDispatch();

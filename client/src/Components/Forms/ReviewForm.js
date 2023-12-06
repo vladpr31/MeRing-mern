@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { StarRating } from "../../../../utils/utils";
+import { StarRating } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import ConfirmationModal from "../../../UI/ConfirmationModal";
+import ConfirmationModal from "../Modals/ConfirmationModal";
 const ReviewForm = ({ doctor, socket }) => {
   const { auth } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);

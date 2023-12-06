@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createArticle } from "../../../../api/api";
+import { createArticle } from "../../api/api";
 const ArticleModal = () => {
   const [article, setArticle] = useState({
     title: "",

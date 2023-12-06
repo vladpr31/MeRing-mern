@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import AppointmentBlack from "../../../../Assets/doctor-black.png";
-import AppointmentModal from "./AppointmentModal";
+import AppointmentModal from "../../../Modals/AppointmentModal";
 import useWindowSize from "../../../../hooks/useWindowSize";
-import ReviewModal from "../Reviews/ReviewModal";
+import ReviewModal from "../../../Modals/ReviewModal";
 import { StarRating } from "../../../../utils/utils";
 const DoctorCard = ({ props }) => {
   const doctorRating = () => {
