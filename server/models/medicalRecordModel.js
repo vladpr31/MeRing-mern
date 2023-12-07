@@ -6,7 +6,6 @@ const medicalRecordModel = new mongoose.Schema({
   illnesses: [],
   weight: Number,
   height: Number,
-  sensitivity: [],
   workout: { type: Boolean, default: false },
   allergies: [],
   medications: [],

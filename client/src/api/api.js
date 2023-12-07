@@ -42,15 +42,21 @@ export const login = (userCredentials) => {
 
 //data fetching
 export const getDiseasesData = () => {
-  return API.get("api/scrap/getAllDiseases");
+  return API.get("api/scrape/getAllDiseases");
 };
 export const getSpecialtiesData = () => {
-  return API.get("api/scrap//getAllSpecialties");
+  return API.get("api/scrape/getAllSpecialties");
+};
+export const getAllergiesData = () => {
+  return API.get("api/scrape/getAllAllergies");
 };
 
 //user data fetching & actions
 export const getUserData = (userID) => {
   return API.get(`api/users/${userID}`);
+};
+export const createPatientMedicalRecord = (userID, record) => {
+  return API.post(`api/users/${userID}/new-record`, record);
 };
 export const getPatientAppointments = (patientID) => {
   return API.get(`api/appointments/${patientID}`);

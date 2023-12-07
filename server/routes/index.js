@@ -29,7 +29,7 @@ router.use("/records", verifyToken, medicalRecordRoutes);
 
 // Routes that don't require token verification
 router.use("/auth", authRoutes);
-router.use("/scrap", scrapRoutes);
+router.use("/scrape", scrapRoutes);
 router.use("/articles", upload.single("articleImage"), articleRoutes);
 router.use("/images", imageRoutes);
 router.use("/admin", adminRoutes);

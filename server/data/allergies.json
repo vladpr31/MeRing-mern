@@ -1,0 +1,81 @@
+{
+  "allergies":[
+        {
+           "name":"Peanuts",
+           "description":"Allergic reaction to peanuts"
+        },
+        {
+           "name":"Shellfish",
+           "description":"Allergic reaction to shellfish"
+        },
+        {
+           "name":"Milk",
+           "description":"Lactose intolerance or milk allergy"
+        },
+        {
+           "name":"Soy",
+           "description":"Allergic reaction to soy products"
+        },
+        {
+           "name":"Eggs",
+           "description":"Allergic reactions to proteins found in eggs"
+        },
+        {
+           "name":"Tree Nuts",
+           "description":"Allergies to various tree nuts, such as almonds, walnuts, cashews"
+        },
+        {
+           "name":"Fish",
+           "description":"Allergies to proteins found in fish, such as salmon or tuna"
+        },
+        {
+           "name":"Soybeans",
+           "description":"Allergic reactions to soy-based products"
+        },
+        {
+           "name":"Wheat",
+           "description":"Allergies to proteins found in wheat, leading to conditions like celiac disease"
+        }
+     ,
+        {
+           "name":"Penicillin",
+           "description":"Allergic reaction to penicillin antibiotics"
+        },
+        {
+           "name":"Aspirin",
+           "description":"Aspirin allergy"
+        },
+        {
+           "name":"Ibuprofen",
+           "description":"Allergic reaction to ibuprofen"
+        },
+        {
+           "name":"Sulfa drugs",
+           "description":"Allergic reaction to sulfa-containing medications"
+        },
+        {
+           "name":"Antibiotics",
+           "description":"Allergic reactions to commonly prescribed antibiotics, leading to skin rashes, itching, or more severe reactions"
+        },
+        {
+           "name":"NSAIDs",
+           "description":"Allergic reactions to nonsteroidal anti-inflammatory drugs (NSAIDs) like Ibuprofen and Aspirin"
+        },
+        {
+           "name":"Sulfa Drugs",
+           "description":"Allergic reactions to medications containing sulfonamides"
+        },
+        {
+           "name":"ACE Inhibitors",
+           "description":"Allergic reactions to medications used for blood pressure control, such as Lisinopril"
+        },
+        {
+           "name":"Opioids",
+           "description":"Allergic reactions to opioid medications used for pain management, such as Codeine and Morphine"
+        },
+        {
+           "name":"Radiocontrast Media",
+           "description":"Allergic reactions to substances used in medical imaging procedures"
+        }
+     ]
+  }

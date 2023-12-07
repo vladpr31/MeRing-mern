@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
-import { getDiseasesData } from "../../../../api/api";
+
 import ApotroposModal from "../../../Modals/ApotroposModal";
 import { useDispatch } from "react-redux";
 import { register } from "../../../../Redux/Actions/authActions";
 import { useNavigate } from "react-router";
 import { checkInputs } from "../../../../utils/utils";
-const customStyles = {
-  dropdownIndicator: (styles) => ({
-    ...styles,
-    height: "10px",
-  }),
-};
+
 const PatientRegister = () => {
   const navigate = useNavigate();
-  const [selectOptions, setSelectOptions] = useState([]);
+
   const [hasApotropos, setHasApotropos] = useState(false);
   const [passwordValid, setPasswordValid] = useState();
   const [newPatient, setnewPatient] = useState({
@@ -115,12 +109,6 @@ const PatientRegister = () => {
           });
           break;
       }
-    } else {
-      const selected = e.map((selectOption) => selectOption.label);
-      setnewPatient((prevState) => ({
-        ...prevState,
-        illnesses: selected,
-      }));
     }
   };
 
@@ -144,21 +132,6 @@ const PatientRegister = () => {
       setError(notEmpty);
     }
   };
-  useEffect(() => {
-    const getDiseases = async () => {
-      const { data: selectOptions } = await getDiseasesData();
-
-      const options = selectOptions.map((option) => {
-        return {
-          value: option.id,
-          label: option.name,
-        };
-      });
-      setSelectOptions(options);
-    };
-    getDiseases();
-  }, []);
-  console.log(newPatient);
   return (
     <div className="py-4 px-8 min-h-screen">
       <form>
@@ -355,18 +328,7 @@ const PatientRegister = () => {
             </span>
           ) : null}
         </div>
-        <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2">
-            Known Diseases:
-            <Select
-              isMulti
-              options={selectOptions}
-              id="ilnesses"
-              onChange={formHandler}
-              styles={customStyles}
-            />
-          </label>
-        </div>
+
         <div className="flex flex-col justify-center text-center">
           <label className="block text-grey-darker text-sm font-bold mb-2">
             Have An Apotropos?(Disabled For Now)

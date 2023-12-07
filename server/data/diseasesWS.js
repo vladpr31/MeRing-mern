@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 const jf = require("jsonfile");
 const file = "./data/diseases.json";
-
+require("dotenv").config();
 //first initialization, scraping data from NHS and saving it into json file.
 //then only returning the json file.
 
@@ -26,12 +26,9 @@ const getDiseases = async () => {
       defaultViewport: null,
     });
     const page = await browser.newPage();
-    await page.goto(
-      "https://www.nhsinform.scot/illnesses-and-conditions/a-to-z",
-      {
-        waitUntil: "domcontentloaded",
-      }
-    );
+    await page.goto(process.env.DISEASES_URI, {
+      waitUntil: "domcontentloaded",
+    });
 
     const diseases = await page.evaluate(() => {
       const diseasesList = document.querySelectorAll(".nhs-uk__az-link");

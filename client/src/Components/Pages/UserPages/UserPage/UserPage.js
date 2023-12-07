@@ -15,8 +15,8 @@ const UserPage = ({ children }) => {
   const currentViewHandler = (view) => {
     localStorage.setItem("currTab", view);
   };
-  if (!user.medicalRecord) {
-    <MedicalRecordModal />;
+  if (!user.medicalRecord && auth.role === "user") {
+    return <MedicalRecordModal user={user} userAuth={auth} />;
   }
   if (isLoading && auth.role !== "admin") {
     return <Loader />;
