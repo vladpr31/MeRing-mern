@@ -282,3 +282,8 @@ export const mockUpImages = [
     desc: "Dive deeper into detailed explanations of our latest analyses, providing you with comprehensive insights and a clearer understanding of your health data.",
   },
 ];
+
+export const calcAge = (dateString) => {
+  var birthday = +new Date(dateString);
+  return ~~((Date.now() - birthday) / 31557600000);
+};

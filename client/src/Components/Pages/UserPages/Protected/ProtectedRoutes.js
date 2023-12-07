@@ -3,10 +3,7 @@ import { CookiesProvider } from "react-cookie";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "../../../../Redux/Actions/userActions";
-import {
-  connectSocket,
-  disconnectSocket,
-} from "../../../../Redux/Actions/socketActions";
+import { connectSocket } from "../../../../Redux/Actions/socketActions";
 import { getSocket } from "../../../../api/socket";
 import UserPage from "../UserPage/UserPage";
 const ProtectedRoutes = ({ children }) => {
@@ -48,7 +45,7 @@ const ProtectedRoutes = ({ children }) => {
   if (socket) {
     return (
       <CookiesProvider>
-        <div className="bg-[url('./Assets/svgs/wave1.svg')] bg-no-repeat bg-cover ">
+        <div className="bg-[url('./Assets/svgs/wave1.svg')] bg-no-repeat bg-cover h-full">
           <UserPage>{children}</UserPage>
         </div>
       </CookiesProvider>

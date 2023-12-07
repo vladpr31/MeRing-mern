@@ -47,7 +47,7 @@ const registerUserWithApotropos = async (userInfo) => {
 const registerUserWithoutApotropos = async (userInfo) => {
   try {
     const user = await userDAL.checkAvailability(userInfo.newUser);
-    console.log(userInfo);
+
     if (!user) {
       const userResponse = await userDAL.createNewUser(userInfo.newUser);
       userInfo.newPatient.profileImage = userInfo.profileImage;
@@ -57,32 +57,56 @@ const registerUserWithoutApotropos = async (userInfo) => {
       });
       const accessToken = generateJWTAccessToken({ user: userResponse });
       const refreshToken = generateJWTRefreshToken({ user: userResponse });
+
       return {
+        success: true,
         accessToken,
         refreshToken,
         id: userResponse._id,
         role: userResponse.role,
       };
     } else {
-      return "Email Already In Use";
+      return {
+        success: false,
+        message: "Email Already In Use",
+      };
     }
   } catch (err) {
-    return err.message;
+    console.error("Error in user registration without Apotropos:", err.message);
+
+    return {
+      success: false,
+      message: "An unexpected error occurred.",
+    };
   }
 };
 const userLogin = async (userCredentials) => {
   try {
     const user = await userDAL.validateUser(userCredentials);
+
     if (user && typeof user !== "string") {
       const accessToken = generateJWTAccessToken(userCredentials);
       const refreshToken = generateJWTRefreshToken(userCredentials);
-      return { accessToken, refreshToken, id: user._id, role: user.role };
+
+      return {
+        success: true,
+        accessToken,
+        refreshToken,
+        id: user._id,
+        role: user.role,
+      };
     } else {
-      return user;
+      return {
+        success: false,
+        message: user || "Invalid credentials", // Ensure a consistent error message
+      };
     }
   } catch (err) {
-    console.log(err.message);
-    return err.message;
+    console.error("Error in user login:", err.message);
+    return {
+      success: false,
+      message: "An unexpected error occurred.",
+    };
   }
 };
 

@@ -15,9 +15,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
   if (data?.length <= 0 || !data) {
     return (
       <ul className="divide-y divide-gray-200 w-full">
-        <li className="py-4 lg:py-3 text-[#52514f]">
-          Nothing Scheduled For Now.
-        </li>
+        <li className="py-4 lg:py-3 text-black">Nothing Scheduled For Now.</li>
       </ul>
     );
   } else {
@@ -41,13 +39,13 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                         ? item?.doctor?.firstName + " " + item?.doctor?.lastName
                         : item.firstName + " " + item.lastName}
                     </p>
-                    <p className="text-sm text-[#52514f] truncate ">
+                    <p className="text-sm text-white truncate ">
                       <span className="underline underline-offset-2">
                         Clinic:{" "}
                       </span>{" "}
                       {item?.clinic?.clinicName}
                     </p>
-                    <p className="text-sm text-[#52514f] truncate ">
+                    <p className="text-sm text-white truncate ">
                       <span className="underline underline-offset-2">
                         Address:{" "}
                       </span>{" "}
@@ -109,7 +107,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                     {index + 1}
                   </div>
                   <div className="flex flex-col p-2.5 ">
-                    <p className="text-[#52514f] ">
+                    <p className="text-white ">
                       On:{" "}
                       {new Date(shift.shiftDate).toLocaleDateString("en-GB")}{" "}
                       At:{" "}
@@ -119,7 +117,7 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                         hour12: false,
                       })}
                     </p>
-                    <p className="text-sm text-[#52514f] truncate ">
+                    <p className="text-sm text-white truncate ">
                       Clinic: {clinic}
                     </p>
                   </div>
@@ -167,13 +165,13 @@ const TableList = ({ data, type, clinic, confirmButtonAction }) => {
                       " " +
                       item.patient.lastName}
                   </p>
-                  <p className="text-sm text-[#52514f] truncate ">
+                  <p className="text-sm text-white truncate ">
                     <span className="underline underline-offset-2">
                       Clinic:{" "}
                     </span>
                     {clinic.clinicName}
                   </p>
-                  <p className="text-sm text-[#52514f] truncate ">
+                  <p className="text-sm text-white truncate ">
                     <span className="underline underline-offset-2">
                       Address:{" "}
                     </span>

@@ -50,7 +50,7 @@ const updateDoctorShifts = async (doctorID, shift) => {
     $addToSet: { shifts: shift._id },
   })
     .then()
-    .catch((err) => console.log("doc shift update err:", err.message));
+    .catch((err) => console.log("shift update err:", err.message));
 };
 const getAllDoctors = () => {
   return DoctorDB.find({}).populate({ path: "clinic", model: "Clinics" });

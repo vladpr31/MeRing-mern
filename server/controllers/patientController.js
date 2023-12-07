@@ -1,36 +1,34 @@
 const patientBLL = require("../BLLs/patientBLL/patientBLL");
-const getPatientByAccountID = async (req, res) => {
+const getPatientByAccountID = async (req, res, next) => {
   try {
     const { id: userID } = req.params;
 
-    const { _id: user } = await patientBLL.getPatientByAccountID(userID);
-    if (user) {
-      const patient = await patientBLL.getPatientByID(user);
-      if (patient) {
-        res.status(200).json(patient);
-      }
+    const { _id: patient } = await patientBLL.getPatientByAccountID(userID);
+    if (patient) {
+      res.status(200).json(patient);
     } else {
-      res.status(400).json("No Such User");
+      next({ status: 400, message: "No Such UserID" });
     }
   } catch (err) {
-    res.status(400).json(err.message);
+    next(err);
   }
 };
 
-const getPatientAppointmentsByDoctor = async (req, res) => {
+const getPatientAppointmentsByDoctor = async (req, res, next) => {
   const { id, doctorID } = req.params;
   const patientData = await patientBLL.getPatientAppointmentsByDoctor(doctorID);
 };
 
-const getAllPatients = async (req, res) => {
+const getAllPatients = async (req, res, next) => {
   try {
     const patients = await patientBLL.getAllPatients();
     if (patients) {
       res.status(200).json(patients);
+    } else {
+      next({ status: 400, message: "No Such User" });
     }
   } catch (err) {
-    console.log(err.message);
-    res.status(400).json(err.message);
+    next(err);
   }
 };
 module.exports = {

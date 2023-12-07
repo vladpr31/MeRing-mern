@@ -1,9 +1,7 @@
 const authBLL = require("../BLLs/authBLL/authBLL");
-const validation = require("../middlewares/validation-middleware");
 const axios = require("axios");
 const login = async (req, res) => {
   try {
-    console.log("login body:", req.body);
     const response = await authBLL.userLogin(req.body);
     if (response && typeof response !== "string") {
       res.status(201).json(response);
@@ -17,116 +15,111 @@ const login = async (req, res) => {
   }
 };
 
-const registerUser =
-  (validation,
-  async (req, res) => {
-    const { info } = req.body;
-    const maxRetries = 3; // Set the maximum number of retries
-    let retries = 0;
-    console.log("info:", info);
-    while (retries < maxRetries) {
-      try {
-        const gender = info.newPatient.gender.toLowerCase();
+const registerUser = async (req, res) => {
+  const { info } = req.body;
+  const maxRetries = 3;
 
-        const randomUser = await axios.get(
-          `https://randomuser.me/api/?gender=${gender}`
-        );
+  const fetchRandomUser = async (gender) => {
+    try {
+      const randomUser = await axios.get(
+        `https://randomuser.me/api/?gender=${gender}`
+      );
+      return randomUser.data.results[0].picture;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-        const userRandomPicture = randomUser.data.results[0].picture;
-        info.profileImage = userRandomPicture;
+  let retries = 0;
 
-        if (info.apotropos) {
-          const response = await authBLL.registerUserWithApotropos(info);
-          return res.status(201).json(response);
-        } else {
-          const response = await authBLL.registerUserWithoutApotropos(info);
-          return res.status(201).json(response);
-        }
-      } catch (err) {
-        // Handle errors, including timeouts
-        if (
-          err.code === "ECONNABORTED" ||
-          err.code === "ETIMEDOUT" ||
-          err.response?.status === 500
-        ) {
-          // Increment the retry count
-          retries++;
+  while (retries < maxRetries) {
+    try {
+      const gender = info.newPatient.gender.toLowerCase();
+      const userRandomPicture = await fetchRandomUser(gender);
+      info.profileImage = userRandomPicture;
 
-          // Log the retry attempt
-          console.log(`Retry attempt ${retries}`);
+      const response = info.apotropos
+        ? await authBLL.registerUserWithApotropos(info)
+        : await authBLL.registerUserWithoutApotropos(info);
 
-          // Wait for a short period before retrying (optional)
-          await wait(1000); // Adjust the delay as needed
-        } else {
-          // Handle other errors
-          return res.status(400).json(err.message);
-        }
+      return res.status(201).json(response);
+    } catch (err) {
+      if (
+        err.code === "ECONNABORTED" ||
+        err.code === "ETIMEDOUT" ||
+        err.response?.status === 500
+      ) {
+        retries++;
+        console.log(`Retry attempt ${retries}`);
+        await wait(1000);
+      } else {
+        return res.status(400).json(err.message);
       }
     }
+  }
 
-    // If all retries fail, respond with an error to the client
-    res.status(500).json("Failed to fetch the image after multiple attempts.");
-  });
+  res.status(500).json("Failed to fetch the image after multiple attempts.");
+};
 
-// Function to wait for a specified duration (in milliseconds)
+const registerWorker = async (req, res) => {
+  const maxRetries = 3;
+  let retries = 0;
 
-const registerWorker =
-  (validation,
-  async (req, res) => {
-    const maxRetries = 3; // Set the maximum number of retries
-    let retries = 0;
+  const fetchRandomUserPicture = async (gender) => {
+    try {
+      const randomUser = await axios.get(
+        `https://randomuser.me/api/?gender=${gender}`
+      );
+      return randomUser.data.results[0].picture;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-    while (retries < maxRetries) {
-      try {
-        console.log(req.body);
-        const gender = req.body.doctor.gender.toLowerCase();
+  while (retries < maxRetries) {
+    try {
+      const { doctor } = req.body;
+      const gender = doctor.gender.toLowerCase();
 
-        const randomUser = await axios.get(
-          `https://randomuser.me/api/?gender=${gender}`
+      const userRandomPicture = await fetchRandomUserPicture(gender);
+      doctor.profileImage = userRandomPicture;
+
+      const response = await authBLL.registerNewDoctor(req.body);
+
+      return res
+        .status(200)
+        .json(
+          response !== "Email Already In Use"
+            ? response
+            : "Email Already In Use"
         );
-        const userRandomPicture = randomUser.data.results[0].picture;
-        req.body.doctor.profileImage = userRandomPicture;
-        const response = await authBLL.registerNewDoctor(req.body);
-        if (response && response !== "Email Already In Use") {
-          return res.status(200).json(response);
-        } else {
-          return res.status(200).json(response);
-        }
-      } catch (err) {
-        // Handle errors, including timeouts
-        if (
-          err.code === "ECONNABORTED" ||
-          err.code === "ETIMEDOUT" ||
-          err.response?.status === 500
-        ) {
-          // Increment the retry count
-          retries++;
-
-          // Log the retry attempt
-          console.log(`Retry attempt ${retries}`);
-
-          // Wait for a short period before retrying (optional)
-          await wait(1000); // Adjust the delay as needed
-        } else {
-          // Handle other errors
-          console.log("Error in worker registration route:", err.message);
-          return res.status(401).json(err.message);
-        }
+    } catch (err) {
+      if (
+        err.code === "ECONNABORTED" ||
+        err.code === "ETIMEDOUT" ||
+        err.response?.status === 500
+      ) {
+        retries++;
+        console.log(`Retry attempt ${retries}`);
+        await wait(1000); // Adjust the delay as needed
+      } else {
+        console.error("Error in worker registration route:", err.message);
+        return res.status(401).json(err.message);
       }
     }
+  }
 
-    // If all retries fail, respond with an error to the client
-    return res
-      .status(500)
-      .json("Failed to register worker after multiple attempts.");
-  });
+  return res
+    .status(500)
+    .json("Failed to register worker after multiple attempts.");
+};
 
 const createAdmin = async (req, res) => {
   const admin = await authBLL.createNewAdmin();
   if (admin === true) {
     res.status(200).json(true);
   } else {
-    res.status(200).json("admin created");
+    res.status(201).json("admin created");
   }
 };
 

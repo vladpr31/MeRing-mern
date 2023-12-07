@@ -1,12 +1,12 @@
 const validator = require("validator");
 
 const validation = async (req, res, next) => {
-  const { info } = req.body;
-  console.log("in validation:", info);
+  console.log("in validation:", req.body);
   try {
-    if (req.url !== "/register-worker") {
-      let userValidation = true;
-      let apotroposValidation = true;
+    let userValidation = true;
+    let apotroposValidation = true;
+    if (req.url !== "/register-worker" && req.url !== "/login") {
+      const { info } = req.body;
       const { newUser, newPatient, apotropos } = info;
 
       userValidation = validator.isEmail(newUser?.email);
@@ -32,9 +32,18 @@ const validation = async (req, res, next) => {
       } else {
         res.status(400).json("Incorrect Values");
       }
-    } else {
-      next();
     }
+    if (req.url === "/login") {
+      const { email, password } = req.body;
+      if (email === "admin@admin.com" && password === "admin") {
+        next();
+      }
+      userValidation = validator.isEmail(email);
+      userValidation = validator.isStrongPassword(password, {
+        minLength: 6,
+      });
+    }
+    next();
   } catch (err) {
     console.log(err);
     res.status(400).json("Something Went Wrong.");

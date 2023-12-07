@@ -1,5 +1,8 @@
 {
   "allergies":[
+   {
+      "name":"None",
+   "description":"The patient doesnt have any allergies or medication sensitivities for his knowledge"},
         {
            "name":"Peanuts",
            "description":"Allergic reaction to peanuts"

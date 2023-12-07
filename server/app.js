@@ -3,6 +3,7 @@ const { connectDB } = require("./config/mongoDB.config");
 const express = require("express");
 const cors = require("cors");
 const api = require("./routes/index");
+const errorHandler = require("./middlewares/ErrorHandler");
 require("dotenv").config();
 
 //Server Creation & Connection to DB.
@@ -14,6 +15,7 @@ connectDB()
     app.use(cors(corsOptions));
     app.use(express.json());
     app.use("/api", api);
+    app.use(errorHandler);
   })
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);

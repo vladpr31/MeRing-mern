@@ -22,7 +22,7 @@ const UserPage = ({ children }) => {
     return <Loader />;
   } else {
     return (
-      <div className="bg-black bg-opacity-10">
+      <div className="bg-black bg-opacity-10 h-full">
         <div className="flex">
           {!isMobile && auth.role !== "doctor" && auth.role !== "admin" ? (
             <SideMenu
@@ -34,7 +34,7 @@ const UserPage = ({ children }) => {
           ) : isMobile && auth.role !== "doctor" && auth.role !== "admin" ? (
             <BottomNav currViewHandler={currentViewHandler} />
           ) : null}
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full h-full">
             <DashboardNavbar currViewHandler={currentViewHandler} />
             {children}
           </div>

@@ -30,10 +30,10 @@ export const getUserData = (userID, role) => async (dispatch) => {
   }
 };
 export const createPatientMedicalRecord =
-  (userID, record) => async (dispatch) => {
+  (user, record) => async (dispatch) => {
     dispatch({ type: IS_LOADING });
-    if (role === "user") {
-      const response = await API.createPatientMedicalRecord(userID, record);
+    if (user.role === "user") {
+      const response = await API.createPatientMedicalRecord(user.id, record);
       if (response.data) {
         dispatch({ type: GET_USER, payload: response.data });
         dispatch({ type: IS_DONE });

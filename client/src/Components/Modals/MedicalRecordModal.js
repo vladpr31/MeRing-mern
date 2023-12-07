@@ -14,6 +14,7 @@ const MedicalRecordModal = ({ user, userAuth }) => {
     allergies: [],
     medications: [],
     socioeconomic: "",
+    patientDescription: "",
   });
   const dispatch = useDispatch();
   const handleProceed = () => {
@@ -45,6 +46,12 @@ const MedicalRecordModal = ({ user, userAuth }) => {
           workout: !prevState.workout,
         }));
         break;
+      case "patient_about":
+        setMedicalRecordForm((prevState) => ({
+          ...prevState,
+          patientDescription: value,
+        }));
+        break;
       case "socioeconomic_Low":
       case "socioeconomic_Moderate":
       case "socioeconomic_High":
@@ -62,6 +69,7 @@ const MedicalRecordModal = ({ user, userAuth }) => {
           allergies: [],
           medications: [],
           socioeconomic: "",
+          patientDescription: "",
         });
     }
   };
@@ -83,8 +91,8 @@ const MedicalRecordModal = ({ user, userAuth }) => {
       medications: [...selected],
     }));
   };
-  const handleRecordDone = () => {
-    dispatch(createPatientMedicalRecord(userAuth.id, medicalRecordForm));
+  const handleRecordDone = (e) => {
+    dispatch(createPatientMedicalRecord(userAuth, medicalRecordForm));
   };
   useEffect(() => {
     const getSelectData = async () => {
@@ -249,7 +257,11 @@ const MedicalRecordModal = ({ user, userAuth }) => {
                 Let us get a bit familiar with you, tell us about yourself a
                 bit:
               </label>
-              <textarea className="bg-gray-200 w-full h-[75px] resize-none rounded-xl p-2"></textarea>
+              <textarea
+                className="bg-gray-200 w-full h-[75px] resize-none rounded-xl p-2"
+                onChange={formInputsHandler}
+                id="patient_about"
+              ></textarea>
             </div>
             <button
               className="bg-blue-500 text-white p-2 rounded-full"

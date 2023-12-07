@@ -4,7 +4,9 @@ const patientModel = new mongoose.Schema({
   firstName: String,
   lastName: String,
   apotropos: { type: mongoose.Schema.Types.ObjectId, ref: "Apotropos" } || null,
-  location: String,
+  city: String,
+  dateOfBirth: Date,
+  address: String,
   phoneNumber: Number,
   medicalRecord: {
     type: mongoose.Schema.Types.ObjectId,

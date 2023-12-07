@@ -13,7 +13,11 @@ const createNewPatient = (patientInfo) => {
 };
 
 const getAllPatients = () => {
-  return PatientDB.find({}, { _id: 0 });
+  return PatientDB.find({}, { _id: 0 }).populate({
+    path: "medicalRecord",
+    model: "Records",
+    select: { _id: 0, patient: 0 },
+  });
 };
 const updateApotroposOfPatient = (id, apotropos) => {
   try {

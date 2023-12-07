@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { register } from "../../../../Redux/Actions/authActions";
 import { useNavigate } from "react-router";
 import { checkInputs } from "../../../../utils/utils";
-
 const PatientRegister = () => {
   const navigate = useNavigate();
 
@@ -20,6 +19,7 @@ const PatientRegister = () => {
     illnesses: [],
     Apotropos: null,
     gender: "",
+    dateOfBirth: new Date(),
   });
   const [newUser, setNewUser] = useState({
     email: "",
@@ -87,17 +87,17 @@ const PatientRegister = () => {
           }));
           break;
         case "patient_gender_male":
-          setnewPatient((prevState) => ({
-            ...prevState,
-            gender: value,
-          }));
-          break;
         case "patient_gender_female":
           setnewPatient((prevState) => ({
             ...prevState,
             gender: value,
           }));
           break;
+        case "dateOfBirth":
+          setnewPatient((prevState) => ({
+            ...prevState,
+            dateOfBirth: new Date(value),
+          }));
         case "close_pressed":
           setApotropos({
             firstName: "",
@@ -111,7 +111,7 @@ const PatientRegister = () => {
       }
     }
   };
-
+  console.log(newPatient);
   const registerHandler = async (e) => {
     e.preventDefault();
     setButtonLoading(true);
@@ -202,6 +202,17 @@ const PatientRegister = () => {
               </span>
             ) : null}
           </div>
+        </div>
+        <div className="flex flex-col justify-center items-center">
+          <label className="block text-grey-darker text-sm font-bold mb-2">
+            Date Of Birth:
+          </label>
+          <input
+            type="date"
+            id="dateOfBirth"
+            onChange={formHandler}
+            className="outline-blue-400 border-2 border-blue-400 px-2 py-1"
+          />
         </div>
         <div className="mb-4">
           <label className="block text-grey-darker text-sm font-bold mb-2">

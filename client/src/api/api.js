@@ -56,7 +56,7 @@ export const getUserData = (userID) => {
   return API.get(`api/users/${userID}`);
 };
 export const createPatientMedicalRecord = (userID, record) => {
-  return API.post(`api/users/${userID}/new-record`, record);
+  return API.post(`api/records/${userID}/new-record`, record);
 };
 export const getPatientAppointments = (patientID) => {
   return API.get(`api/appointments/${patientID}`);

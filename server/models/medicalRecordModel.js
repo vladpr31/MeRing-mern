@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const medicalRecordModel = new mongoose.Schema({
-  Patient: { type: mongoose.Schema.Types.ObjectId, ref: "Patients" },
+  patient: { type: mongoose.Schema.Types.ObjectId, ref: "Patients" },
   apotropos: { type: mongoose.Schema.Types.ObjectId, ref: "Apotropos" } || null,
   illnesses: [],
   weight: Number,
@@ -11,13 +11,15 @@ const medicalRecordModel = new mongoose.Schema({
   medications: [],
   socioeconomic: { type: String, default: "Middle" },
   visits: [],
-  previousRecords: [],
+  previousRecords: [{ type: mongoose.Schema.Types.ObjectId, ref: "Records" }],
+  patientDescription: String,
 });
 
+//update the patient with new medical record after creating it.
 medicalRecordModel.post("save", async (doc) => {
   await Patient.findByIdAndUpdate(
-    { _id: this.patient.toString() },
-    { medicalRecord: this._id }
+    { _id: doc.patient.toString() },
+    { medicalRecord: doc._id }
   );
 });
 
