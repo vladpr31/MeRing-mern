@@ -3,7 +3,8 @@ const getPatientByAccountID = async (req, res, next) => {
   try {
     const { id: userID } = req.params;
 
-    const { _id: patient } = await patientBLL.getPatientByAccountID(userID);
+    const { _id: user } = await patientBLL.getPatientByAccountID(userID);
+    const patient = await patientBLL.getPatientByID(user);
     if (patient) {
       res.status(200).json(patient);
     } else {

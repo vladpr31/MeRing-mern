@@ -11,7 +11,6 @@ const UserPage = ({ children }) => {
   const { auth } = useSelector((state) => state.auth);
   const { width } = useWindowSize();
   const isMobile = width <= 1024;
-
   const currentViewHandler = (view) => {
     localStorage.setItem("currTab", view);
   };

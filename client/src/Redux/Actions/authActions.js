@@ -34,10 +34,10 @@ export const login = (credentials, location) => async (dispatch) => {
   }
 };
 
-export const logout = (location) => (dispatch) => {
+export const logout = (location) => async (dispatch) => {
   if (!location) {
+    await dispatch({ type: LOGOUT });
     window.location.href = "/";
-    dispatch({ type: LOGOUT });
   } else {
     location("/");
     dispatch({ type: LOGOUT });
