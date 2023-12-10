@@ -5,6 +5,8 @@ import ArticleSection from "./ArticleSection";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import FeaturesSection from "./FeaturesSection";
+import FAQSection from "./FAQSection";
+import ContactSection from "./ContactSection";
 
 const Homepage = () => {
   return (
@@ -14,6 +16,8 @@ const Homepage = () => {
       <AboutSection />
       <FeaturesSection />
       <ArticleSection />
+      <FAQSection />
+      <ContactSection />
     </>
   );
 };

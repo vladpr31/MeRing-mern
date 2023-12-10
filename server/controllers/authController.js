@@ -6,7 +6,6 @@ const login = async (req, res) => {
     if (response && typeof response !== "string") {
       res.status(201).json(response);
     } else {
-      console.log(response);
       res.status(401).json({ message: "Wrong Credentials or Invalid User" });
     }
   } catch (err) {
